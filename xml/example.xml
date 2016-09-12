@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<row>
+		<column name="username" length="6">admin</column>
+		<column name="password" length="1">p</column>
+		<column name="username" length="10">powerUser</column>
+	<column name="username" length="10">powerUser</column></row>
+
+	<row>
+		<column name="username" length="6">j</column>
+		<column name="password" length="8">q</column>
+		<column name="username" length="10">powerUser</column>
+	<column name="username" length="10">powerUser</column></row>
+
+</root>
