@@ -21,11 +21,12 @@ public class MyString {
     private static Charset charset_g = Charset.forName("ASCII");
 
     /**
-     * This method analyses if "toBeSearched" contains "toFind" analysing
-     * from the begininng
+     * This method analyses if "toBeSearched" contains "toFind" analysing from
+     * the begininng
+     *
      * @param toBeSearched
      * @param toFind
-     * @return 
+     * @return
      */
     public static boolean getIfStringContains(String toBeSearched, String toFind) {
         if (toBeSearched.regionMatches(0, toFind, 0, toFind.length())) {
@@ -35,10 +36,7 @@ public class MyString {
         }
     }
 
-    public static void main(String[] args) {
-        
-        System.out.println(""+ getIfStringContains("A003 FTREHJ", "A003"));
-    }
+    
 
     /**
      * Good to remember
@@ -58,8 +56,8 @@ public class MyString {
             return false;
         }
     }
-    
-     public static  boolean isDouble(Object obj) {
+
+    public static boolean isDouble(Object obj) {
         if (obj instanceof String) {
             String val = (String) obj;
             //
@@ -235,6 +233,16 @@ public class MyString {
         } else {
             return false;
         }
+    }
+
+    public static String getLastChar(String str) {
+        int a = str.length() - 1;
+        int b = str.length();
+        return str.substring(a, b);
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("" + getLastChar("      -1"));
     }
 
     public static String delete_last_letter_in_string(String str) {
