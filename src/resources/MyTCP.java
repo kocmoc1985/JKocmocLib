@@ -5,10 +5,12 @@
 package resources;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -20,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -154,11 +158,6 @@ public class MyTCP {
         }
     }
 
-    public static void main(String[] args) {
-        getMacAddress();
-//        System.out.println("" + portOccupied(3389));
-    }
-
     /**
      * Ok but ping 3 is better
      *
@@ -208,6 +207,58 @@ public class MyTCP {
 
         int returnVal = proc.waitFor();
         return returnVal == 0;
+    }
+
+    public static String run_program_with_catching_output(String param) throws IOException {
+        Process p = Runtime.getRuntime().exec(param);
+        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line;
+        while ((line = input.readLine()) != null) {
+            if (!line.trim().equals("")) {
+                // keep only the process name
+                line = line.substring(1);
+                String mac = extractMacAddr(line);
+                if (mac.isEmpty() == false) {
+                    return mac;
+                }
+            }
+
+        }
+        return null;
+    }
+
+    public static String extractMacAddr(String str) {
+        String arr[] = str.split("   ");
+        for (String string : arr) {
+            if (string.trim().length() == 17) {
+                return string.trim().toUpperCase();
+            }
+        }
+        return "";
+    }
+
+    public static String getMacAddrHost(String host) throws IOException, InterruptedException {
+        //
+        boolean ok = ping3(host);
+        //
+        if (ok) {
+            InetAddress address = InetAddress.getByName(host);
+            String ip = address.getHostAddress();
+            return run_program_with_catching_output("arp -a " + ip);
+        }
+        //
+        return null;
+        //
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println("" + getMacAddrHost("10.48.32.54"));
+        } catch (IOException ex) {
+            Logger.getLogger(MyTCP.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MyTCP.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -270,7 +321,6 @@ public class MyTCP {
                 //Important
                 if (is.available() == 0) {
                     break;
-
 
                 }
                 //
@@ -349,7 +399,6 @@ public class MyTCP {
             input.read(buffer);
             String s = new String(buffer);
 //            show_message("flush = " + s);
-
 
         } catch (IOException ex) {
             Logger.getLogger(MyTCP.class
