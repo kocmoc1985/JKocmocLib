@@ -54,17 +54,14 @@ public class MyProcess {
         builder.directory(new File(path));
         builder.start();
     }
-    
-    public static void main(String[] args) throws IOException {
-        run_application_exe_or_jar("pixie.exe", "../");
-    }
 
     /**
-     * f you run .exe from the same dir use  * "." for path parameter
+     * f you run .exe from the same dir use * "." for path parameter
+     *
      * @param application_to_run_name
      * @param arg
      * @param path
-     * @throws IOException 
+     * @throws IOException
      */
     public static void run_application_jar_with_argument(String application_to_run_name, String arg, String path) throws IOException {
         String[] commands = new String[4];
@@ -222,8 +219,8 @@ public class MyProcess {
         }
         return false;
     }
-    
-     public static void terminate_process_no_external_apps_and_libraries(String progName)  {
+
+    public static void terminate_process_no_external_apps_and_libraries(String progName) {
         //
         String KILL = "taskkill /F /IM ";
         //
@@ -313,8 +310,6 @@ public class MyProcess {
         builder.start();
     }
 
-    
-
     /**
      * Launches the ping
      */
@@ -340,8 +335,36 @@ public class MyProcess {
 //        Process proc = runtime.exec("standby -s -t 0");
         System.exit(0);
     }
+
+    public static boolean shut_down_remote_pc(String host) throws IOException, InterruptedException {
+        Runtime runtime = Runtime.getRuntime();
+        Process proc = runtime.exec("shutdown -s -m \\\\" + host);
+        int returnVal = proc.waitFor();
+        return returnVal == 0;
+    }
     
-      private static void restart() throws IOException {
+     private static boolean shut_down_remote_pc__with_catching_output(String host) throws IOException {
+        Process p = Runtime.getRuntime().exec("shutdown -s -m \\\\" + host);
+        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line;
+        while ((line = input.readLine()) != null) {
+            if (!line.trim().equals("")) {
+                // keep only the process name
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println("" + shut_down_remote_pc__with_catching_output("10.87.0.45"));
+        } catch (IOException ex) {
+            Logger.getLogger(MyProcess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void restart() throws IOException {
         Runtime runtime = Runtime.getRuntime();
         Process proc = runtime.exec("shutdown -r -t 0");
         System.exit(0);

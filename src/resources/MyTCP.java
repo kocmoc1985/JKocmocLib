@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -209,7 +207,7 @@ public class MyTCP {
         return returnVal == 0;
     }
 
-    public static String run_program_with_catching_output(String param) throws IOException {
+    private static String getMacAddrHost_run_with_output(String param) throws IOException {
         Process p = Runtime.getRuntime().exec(param);
         BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
         String line;
@@ -217,7 +215,7 @@ public class MyTCP {
             if (!line.trim().equals("")) {
                 // keep only the process name
                 line = line.substring(1);
-                String mac = extractMacAddr(line);
+                String mac = getMacAddrHost_extractmac(line);
                 if (mac.isEmpty() == false) {
                     return mac;
                 }
@@ -227,7 +225,7 @@ public class MyTCP {
         return null;
     }
 
-    public static String extractMacAddr(String str) {
+    private static String getMacAddrHost_extractmac(String str) {
         String arr[] = str.split("   ");
         for (String string : arr) {
             if (string.trim().length() == 17) {
@@ -237,6 +235,13 @@ public class MyTCP {
         return "";
     }
 
+    /**
+     * THis is the main one
+     * @param host
+     * @return
+     * @throws IOException
+     * @throws InterruptedException 
+     */
     public static String getMacAddrHost(String host) throws IOException, InterruptedException {
         //
         boolean ok = ping3(host);
@@ -244,7 +249,7 @@ public class MyTCP {
         if (ok) {
             InetAddress address = InetAddress.getByName(host);
             String ip = address.getHostAddress();
-            return run_program_with_catching_output("arp -a " + ip);
+            return getMacAddrHost_run_with_output("arp -a " + ip);
         }
         //
         return null;
@@ -253,7 +258,7 @@ public class MyTCP {
 
     public static void main(String[] args) {
         try {
-            System.out.println("" + getMacAddrHost("10.48.32.54"));
+            System.out.println("" + getMacAddrHost("MIXCONT-VS2008"));
         } catch (IOException ex) {
             Logger.getLogger(MyTCP.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {

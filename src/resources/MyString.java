@@ -99,9 +99,14 @@ public class MyString {
      * @return
      */
     public static String string_to_table_view(String file_name, String size, String date) {
-        String format = "%1$-50s %2$-7s %3$-10s \n";
+        String format = "%1$-10s %2$-7s %3$-10s \n";
         String arr[] = {file_name, size, date};
         return String.format(format, (Object[]) arr);
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("" +string_to_table_view("aa.zip", "45456kb", "2016-10-31"));
+        System.out.println("" +string_to_table_view("aaaaaa.zip", "45456kb", "2016-10-31"));
     }
 
     /**
@@ -240,11 +245,7 @@ public class MyString {
         int b = str.length();
         return str.substring(a, b);
     }
-    
-    public static void main(String[] args) {
-        System.out.println("" + getLastChar("      -1"));
-    }
-
+ 
     public static String delete_last_letter_in_string(String str) {
         int a = str.length() - 1;
         return str.substring(0, a);
