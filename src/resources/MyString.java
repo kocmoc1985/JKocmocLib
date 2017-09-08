@@ -20,14 +20,17 @@ public class MyString {
 
     private static Charset charset_g = Charset.forName("ASCII");
 
-    /**
-     * This method analyses if "toBeSearched" contains "toFind" analysing from
-     * the begininng
-     *
-     * @param toBeSearched
-     * @param toFind
-     * @return
-     */
+    
+    public static String cubicMeter(){
+        return "kg/m&#179";
+    }
+    
+    public static String celcius(){
+        return "\u00b0C";
+    }
+    
+    
+    
     public static boolean getIfStringContains(String toBeSearched, String toFind) {
         if (toBeSearched.regionMatches(0, toFind, 0, toFind.length())) {
             return true;
@@ -99,7 +102,7 @@ public class MyString {
      * @return
      */
     public static String string_to_table_view(String file_name, String size, String date) {
-        String format = "%1$-10s %2$-7s %3$-10s \n";
+        String format = "%1$-20s %2$-7s %3$-10s \n";
         String arr[] = {file_name, size, date};
         return String.format(format, (Object[]) arr);
     }

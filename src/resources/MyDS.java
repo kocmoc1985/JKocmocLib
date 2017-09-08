@@ -26,6 +26,16 @@ import java.util.logging.Logger;
  */
 public class MyDS {
 
+    public static char[] reverseCharArr(char[] arr) {
+        char[] arr_return = new char[arr.length];
+        int counter = 0;
+        for (int i = arr.length - 1; i >= 0; i--) {
+            arr_return[counter] = arr[i];
+            counter++;
+        }
+        return arr_return;
+    }
+
     public static Properties joinProperties(Properties p1, Properties p2) {
 
         Properties joined_properties = new Properties();

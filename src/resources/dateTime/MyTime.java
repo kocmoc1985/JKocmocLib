@@ -19,8 +19,18 @@ import java.util.TimeZone;
  * @author Administrator
  */
 public class MyTime {
-    
+
     private static long[] date_list = {new Long("1352475262539"), new Long("1352474779836"), new Long("1352452070961")};
+
+    /**
+     * Rather Important
+     * @param date
+     * @param dateFormat
+     * @return 
+     */
+    public static String javaDateToGivenFormat(Date date, String dateFormat) {
+        return millisToDateConverter("" + date.getTime(), dateFormat);
+    }
 
     /**
      * SUPER IMPORTANT This method defines the date format of the input
@@ -59,27 +69,26 @@ public class MyTime {
         "dd:MM:yy", "dd:MM:yyyy"};
 
     /**
-     * Check if a string is date by using regular expression.
-     * This method verifies dates in format like: 2014-05-21 (pay attention to "-")
+     * Check if a string is date by using regular expression. This method
+     * verifies dates in format like: 2014-05-21 (pay attention to "-")
+     *
      * @param value_yyyy_MM_dd
-     * @return 
+     * @return
      */
-     private static boolean checkIfDate(String value_yyyy_MM_dd){
-        if(value_yyyy_MM_dd.matches("\\d{4}-\\d{2}-\\d{2}")){
+    private static boolean checkIfDate(String value_yyyy_MM_dd) {
+        if (value_yyyy_MM_dd.matches("\\d{4}-\\d{2}-\\d{2}")) {
             return true;
         }
         return false;
     }
-     
-     private static boolean checkIfDate2(String value_dd_MM_yyyy){
-        if(value_dd_MM_yyyy.matches("\\d{2}-\\d{2}-\\d{4}")){
+
+    private static boolean checkIfDate2(String value_dd_MM_yyyy) {
+        if (value_dd_MM_yyyy.matches("\\d{2}-\\d{2}-\\d{4}")) {
             return true;
         }
         return false;
     }
-     
-   
-    
+
     /**
      * Checks a date against the given format Ex: Check if date-> 2012-05-11 is
      * of format = yyyyMMdd -> the method will return false
@@ -99,7 +108,7 @@ public class MyTime {
         }
         String verify_date;
         verify_date = millisToDateConverter("" + x, required_format);
-        
+
         if (verify_date.equals(date) == false) {
             return false;
         }
@@ -133,22 +142,24 @@ public class MyTime {
         System.out.println("nearest date: " + millisToDateConverter("" + nearest_date));
         return nearest_date;
     }
+
     /**
      * ("2014-03-21 11:19:15.45", "yyyy-MM-dd HH:mm:ss"
+     *
      * @param date1
      * @param date_format1
      * @param date2
      * @param date_format2
-     * @return 
+     * @return
      */
-    public static long get_diff_between_two_dates(String date1, String date_format1,String date2, String date_format2){
+    public static long get_diff_between_two_dates(String date1, String date_format1, String date2, String date_format2) {
         long ms_date1 = dateToMillisConverter3(date1, date_format1);
         long ms_date2 = dateToMillisConverter3(date2, date_format2);
         return ms_date1 - ms_date2;
     }
-    
-     public static void main(String[] args) {
-         System.out.println("" + get_diff_between_two_dates("2014-03-21 11:19:15", "yyyy-MM-dd HH:mm:ss", "2014-03-21 09:15:10", "yyyy-MM-dd HH:mm:ss"));
+
+    public static void main(String[] args) {
+        System.out.println("" + get_diff_between_two_dates("2014-03-21 11:19:15", "yyyy-MM-dd HH:mm:ss", "2014-03-21 09:15:10", "yyyy-MM-dd HH:mm:ss"));
     }
 
     /**
@@ -166,7 +177,7 @@ public class MyTime {
         String new_date = millisToDateConverter("" + new_date_in_ms, date_format);
         return new_date;
     }
-    
+
     public static String get_date_time_plus_some_time_in_ms(String date, String date_format, long time_to_minus) {
         long ms = dateToMillisConverter3(date, date_format);
         long new_date_in_ms = ms + time_to_minus;
@@ -222,14 +233,14 @@ public class MyTime {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // this works to!
 
         long now = Long.parseLong(millis);
-        
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(now);
 
 //        System.out.println(now + " = " + formatter.format(calendar.getTime()));
         return formatter.format(calendar.getTime());
     }
-    
+
     public static String millisToTimeConverter(String millis) {
 
 //        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS"); //this works!
@@ -237,7 +248,7 @@ public class MyTime {
         DateFormat formatter = new SimpleDateFormat("HH:mm:ss"); // this works to!
 
         long now = Long.parseLong(millis);
-        
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(now);
 
@@ -260,7 +271,7 @@ public class MyTime {
             Logger.getLogger(MyTime.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
-        
+
     }
 
     /**
@@ -329,8 +340,6 @@ public class MyTime {
 //        System.out.println(f1.format(d));
         return f1.format(d);
     }
-    
-    
 
     /**
      *
@@ -355,7 +364,7 @@ public class MyTime {
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
     }
-    
+
     public static String get_proper_date_given_format(String format) {
         DateFormat formatter = new SimpleDateFormat(format);
         Calendar calendar = Calendar.getInstance();
@@ -436,7 +445,7 @@ public class MyTime {
         Date d = cal.getTime();
         return f1.format(d);
     }
-    
+
     public static String secondsToMiniutesAndSeconds(int seconds) {
         int sec = seconds % 60;
         int min = (seconds - sec) / 60;
@@ -446,9 +455,7 @@ public class MyTime {
             return min + ":" + sec;
         }
     }
-    
-     
-    
+
     public static double millis_to_seconds_converter(long millis) {
         return millis / 1000;
     }

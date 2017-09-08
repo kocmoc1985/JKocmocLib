@@ -40,11 +40,16 @@ public class MyMath {
      * @return
      */
     public static double roundingOfDoubleProperFunction(double number) {
-        DecimalFormat twoDForm = new DecimalFormat("#.###");
+        DecimalFormat twoDForm = new DecimalFormat("#.#");
         DecimalFormatSymbols s = DecimalFormatSymbols.getInstance();
         s.setDecimalSeparator('.');
         twoDForm.setDecimalFormatSymbols(s);
         return Double.valueOf(twoDForm.format(number));
+    }
+    
+    public static void main(String[] args) {
+        
+        System.out.println("" + roundingOfDoubleProperFunction(1.34));
     }
 
     /**
