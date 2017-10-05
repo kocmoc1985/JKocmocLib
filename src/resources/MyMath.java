@@ -15,6 +15,20 @@ import java.util.Random;
  */
 public class MyMath {
 
+    public static double calcMedian(ArrayList<Double> list) {
+        Double[] arr = new Double[list.size()];
+        list.toArray(arr);
+        double median;
+        //
+        if (arr.length % 2 == 0) {
+            median = ((double) arr[arr.length / 2] + (double) arr[arr.length / 2 - 1]) / 2;
+        } else {
+            median = (double) arr[arr.length / 2];
+        }
+
+        return median;
+    }
+
     public static void count_with_big_values_examle() {
         double x = 7098576 / 1048576;
         System.out.println("" + x);
@@ -46,9 +60,9 @@ public class MyMath {
         twoDForm.setDecimalFormatSymbols(s);
         return Double.valueOf(twoDForm.format(number));
     }
-    
+
     public static void main(String[] args) {
-        
+
         System.out.println("" + roundingOfDoubleProperFunction(1.34));
     }
 
@@ -74,8 +88,6 @@ public class MyMath {
     public static double rounding_of_double(double rst) {
         return Double.parseDouble(String.format("%2.2f", rst).replace(",", "."));
     }
-
-   
 
     /**
      * Rounding of a Double to get a Shorter String for printing
@@ -156,8 +168,6 @@ public class MyMath {
         int x = (int) ((Math.random() * 100) + 1);
         return "" + x;
     }
-    
-    
 
     /**
      * it should pick the number 1 with a probability of 75%

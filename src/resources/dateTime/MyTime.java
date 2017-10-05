@@ -158,9 +158,7 @@ public class MyTime {
         return ms_date1 - ms_date2;
     }
 
-    public static void main(String[] args) {
-        System.out.println("" + get_diff_between_two_dates("2014-03-21 11:19:15", "yyyy-MM-dd HH:mm:ss", "2014-03-21 09:15:10", "yyyy-MM-dd HH:mm:ss"));
-    }
+   
 
     /**
      * Usage example: get_date_time_minus_some_time_in_ms("2014-03-21
@@ -339,6 +337,11 @@ public class MyTime {
         Date d = cal.getTime();
 //        System.out.println(f1.format(d));
         return f1.format(d);
+    }
+    
+     public static void main(String[] args) {
+         System.out.println("" + get_proper_date_adjusted_format(3));
+         
     }
 
     /**

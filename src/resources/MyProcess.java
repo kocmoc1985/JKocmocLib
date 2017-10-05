@@ -364,7 +364,7 @@ public class MyProcess {
         }
     }
 
-    private static void restart() throws IOException {
+    public static void restart() throws IOException {
         Runtime runtime = Runtime.getRuntime();
         Process proc = runtime.exec("shutdown -r -t 0");
         System.exit(0);
