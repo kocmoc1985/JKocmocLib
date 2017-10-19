@@ -17,6 +17,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -34,6 +36,21 @@ import javax.swing.table.TableColumnModel;
  * @author Administrator
  */
 public class MySqlTable {
+
+    public static String extractTableName(String q) {
+        Pattern p = Pattern.compile("from\\s+(?:\\w+\\.)*(\\w+)($|\\s+[WHERE,JOIN,START\\s+WITH,ORDER\\s+BY,GROUP\\s+BY])", Pattern.CASE_INSENSITIVE);
+
+        Matcher m = p.matcher(q);
+        while (m.find()) {
+//            System.out.println(m.group(1));
+            return m.group(1);
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        extractTableName("select * from mainTable");
+    }
 
     public static int getRowByValue(JTable table, String col_name, String row_value) {
         for (int i = 0; i < table.getColumnCount(); ++i) {
@@ -53,7 +70,7 @@ public class MySqlTable {
         }
         return -1;
     }
-    
+
     public static String getLastIncrementedId(SqlBasicLocal sql, String tableName) {
         //
         String q = "SELECT IDENT_CURRENT('" + tableName + "')";
@@ -119,8 +136,8 @@ public class MySqlTable {
         //
         return csv;
     }
-    
-     private String sqlTableToCsv(SqlBasicLocal sql,String query,int startCol,int endCol) throws SQLException {
+
+    private String sqlTableToCsv(SqlBasicLocal sql, String query, int startCol, int endCol) throws SQLException {
         String CSV_STRING = "";
         ResultSet rs = sql.execute(query);
 
@@ -265,7 +282,6 @@ public class MySqlTable {
         double width = table_width * percent;
         table.getColumn(colName).setPreferredWidth((int) width);
     }
-    
 
     public static void setColumnWidthByIndex(int colIndex, JTable table, int width) {
         table.getColumnModel().getColumn(colIndex).setPreferredWidth(width);
@@ -282,7 +298,7 @@ public class MySqlTable {
         }
     }
 
-    public static ArrayList<Integer> saveColumnWidths(ArrayList<Integer> listBeforeChanges,int initialWidth,JTable table) {
+    public static ArrayList<Integer> saveColumnWidths(ArrayList<Integer> listBeforeChanges, int initialWidth, JTable table) {
         //
         ArrayList<Integer> list = new ArrayList<Integer>();
         //
@@ -290,13 +306,13 @@ public class MySqlTable {
             list.add(getColumnWidthByIndex(i, table));
         }
         //
-        if(listBeforeChanges.isEmpty()){
+        if (listBeforeChanges.isEmpty()) {
             return list;
         }
         //
-        if(checkIfInitialWidths(list, initialWidth) == false){
+        if (checkIfInitialWidths(list, initialWidth) == false) {
             return list;
-        }else{
+        } else {
             return listBeforeChanges;
         }
         //
@@ -455,10 +471,6 @@ public class MySqlTable {
             return "'" + value + "'";
         }
     }
-    
-    
-
-    
 
     /**
      * Count nr of columns in table
@@ -494,9 +506,9 @@ public class MySqlTable {
         DefaultTableModel dtm = (DefaultTableModel) table.getModel();
         dtm.moveRow(rowToMove, rowToMove, rowToMoveTo);
     }
-    
+
     /**
-     * 
+     *
      * @param rs
      * @param jTable
      * @param roundingFormat - is passed like "#.##"
@@ -528,8 +540,7 @@ public class MySqlTable {
             Logger.getLogger(MySqlTable.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
+
     /**
      * A very useful function, used to get Headers from the ResultSet(From
      * database) This method is often used together with the
@@ -584,7 +595,7 @@ public class MySqlTable {
 
         return content;
     }
-    
+
     private static synchronized Object[][] getContentRounding(ResultSet rs, String format) throws SQLException {
         ResultSetMetaData rsmt;
         Object[][] content;
@@ -606,7 +617,7 @@ public class MySqlTable {
         //
         return content;
     }
-    
+
     private static synchronized Object roundDouble(Object obj, String format) {
         if (isDouble(obj)) {
             String val = (String) obj;
@@ -757,7 +768,7 @@ public class MySqlTable {
     }
 
     /**
-     * 
+     *
      *
      * @param rowsToHighlight
      * @param jTable
@@ -784,7 +795,7 @@ public class MySqlTable {
         jTable.repaint();
     }
 
-    public void unpaint_row(JTable table,String id,String idColumnName, LinkedList<Integer> rowsToHighlight) {
+    public void unpaint_row(JTable table, String id, String idColumnName, LinkedList<Integer> rowsToHighlight) {
         Iterator<Integer> iter = rowsToHighlight.iterator();
         int i = 0;
         //
@@ -798,7 +809,7 @@ public class MySqlTable {
             i++;
         }
         //
-       paint_selected_rows(rowsToHighlight, table, idColumnName, Color.lightGray);
+        paint_selected_rows(rowsToHighlight, table, idColumnName, Color.lightGray);
     }
 
     /**

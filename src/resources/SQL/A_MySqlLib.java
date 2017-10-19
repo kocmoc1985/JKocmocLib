@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -15,6 +17,15 @@ import java.util.logging.Logger;
  */
 public class A_MySqlLib {
     
+    public static String extractTableName(String q) {
+        Pattern p = Pattern.compile("from\\s+(?:\\w+\\.)*(\\w+)($|\\s+[WHERE,JOIN,START\\s+WITH,ORDER\\s+BY,GROUP\\s+BY])", Pattern.CASE_INSENSITIVE);
+
+        Matcher m = p.matcher(q);
+        while (m.find()) {
+            return m.group(1);
+        }
+        return null;
+    }
     
      public static String quotes(String str, boolean number) {
         //

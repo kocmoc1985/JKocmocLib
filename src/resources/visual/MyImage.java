@@ -4,12 +4,15 @@
  */
 package resources.visual;
 
+import com.sun.jndi.toolkit.url.Uri;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,13 +20,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,9 +40,10 @@ public class MyImage {
 
     /**
      * To create a imageicon for a frame
+     *
      * @param frame
      * @param path
-     * @return 
+     * @return
      */
     public static JFrame setImageIcon(JFrame frame, String path) {
         frame.setIconImage(new ImageIcon(path).getImage());
@@ -44,9 +51,9 @@ public class MyImage {
     }
 
     /**
-     * Just to remember
-     * path example("C:/project/002.jpg");
-     * @param 
+     * Just to remember path example("C:/project/002.jpg");
+     *
+     * @param
      * @return ImageIcon
      */
     public static ImageIcon create_ImageIcon(String path) {
@@ -59,11 +66,11 @@ public class MyImage {
     public static Image createImage(String path) {
         return Toolkit.getDefaultToolkit().getImage(path);
     }
-
+    
     public static Image createImage(byte[] arr) {
         return Toolkit.getDefaultToolkit().createImage(arr);
     }
-
+    
     public static Clipboard getClipBoard() {
         return Toolkit.getDefaultToolkit().getSystemClipboard();
     }
@@ -73,6 +80,24 @@ public class MyImage {
         img = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         ic.setImage(img);
         return ic;
+    }
+    
+    public static void fitImageToJLabel(URL imageUrl, JLabel label) {
+        //
+        BufferedImage img;
+        //
+        try {
+            img = ImageIO.read(imageUrl);
+            //
+            Image dimg = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+            //
+            ImageIcon imageIcon = new ImageIcon(dimg);
+            //
+            label.setIcon(imageIcon);
+            //
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -141,13 +166,13 @@ public class MyImage {
     }
 
     /**
-     * 
+     *
      */
     public static class ImageContainer {
-
+        
         Object img1;
         Object img2;
-
+        
         public ImageContainer(Object img1, Object img2) {
             this.img1 = img1;
             this.img2 = img2;
@@ -155,7 +180,7 @@ public class MyImage {
     }
 
     /**
-     * 
+     *
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -186,8 +211,11 @@ public class MyImage {
     //***************************************************************************************************************************************
 
     /**
-     * VERY IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     * This method can pack a Objcect and write it to file which contains Images in form of byte[]arrays
+     * VERY
+     * IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * This method can pack a Objcect and write it to file which contains Images
+     * in form of byte[]arrays
+     *
      * @throws FileNotFoundException
      * @throws IOException
      */
@@ -200,7 +228,9 @@ public class MyImage {
     }
 
     /**
-     *VERY IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * VERY
+     * IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     *
      * @param path
      * @return
      * @throws FileNotFoundException
@@ -216,7 +246,9 @@ public class MyImage {
     }
 
     /**
-     * VERY IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * VERY
+     * IMPORTANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     *
      * @param path
      * @throws IOException
      * @throws ClassNotFoundException
@@ -233,24 +265,24 @@ public class MyImage {
      *
      */
     public static class ImageContainer2 implements Serializable {
-
+        
         byte[] img1;
         byte[] img2;
-
+        
         public ImageContainer2(byte[] img1, byte[] img2) {
             this.img1 = img1;
             this.img2 = img2;
         }
-
+        
         public ImageIcon getImageIcon1() {
             return new ImageIcon(img1);
         }
-
+        
         public ImageIcon getImageIcon2() {
             return new ImageIcon(img2);
         }
     }
-
+    
     public static void main(String[] args) {
 //
 //                    try {

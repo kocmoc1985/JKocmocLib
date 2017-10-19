@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
@@ -268,6 +269,12 @@ public class My_Awt_Swing {
         c.repaint();
         c.updateUI();
         return c;
+    }
+    
+    public static void refreshJtable(JTable table){
+        table.validate();
+        table.revalidate();
+        table.repaint();
     }
 
     /**

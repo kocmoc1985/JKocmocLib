@@ -8,6 +8,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JEditorPane;
 import javax.swing.text.rtf.RTFEditorKit;
 import static resources.MyANSI.codeToString;
@@ -39,6 +41,16 @@ public class MyString {
         }
     }
 
+    
+    public static String extractTableName(String q) {
+        Pattern p = Pattern.compile("from\\s+(?:\\w+\\.)*(\\w+)($|\\s+[WHERE,JOIN,START\\s+WITH,ORDER\\s+BY,GROUP\\s+BY])", Pattern.CASE_INSENSITIVE);
+
+        Matcher m = p.matcher(q);
+        while (m.find()) {
+            return m.group(1);
+        }
+        return null;
+    }
     
 
     /**
