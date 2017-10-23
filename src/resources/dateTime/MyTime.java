@@ -4,6 +4,8 @@
  */
 package resources.dateTime;
 
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +15,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import org.apache.commons.net.ntp.TimeStamp;
+import resources.SQL.SqlBasicLocal;
 
 /**
  *
@@ -22,11 +26,44 @@ public class MyTime {
 
     private static long[] date_list = {new Long("1352475262539"), new Long("1352474779836"), new Long("1352452070961")};
 
+    public static Timestamp dateToSqlTimeStamp(String date) {
+        //
+        String dateFormat = define_date_format(date);
+        //
+        if (dateFormat != null) {
+            //
+            long millis = dateToMillisConverter3(date, dateFormat);
+            return new Timestamp(millis);
+            //
+        } else {
+            return null;
+        }
+    }
+
+    public static void setTimeStampSql(SqlBasicLocal sql, String date) {
+        //
+        String dateFormat = define_date_format(date);
+        //
+        if (dateFormat != null) {
+            //
+            long millis = dateToMillisConverter3(date, dateFormat);
+            Timestamp timestamp = new Timestamp(millis);
+            //
+            try {
+                sql.getPreparedStatement().setTimestamp(1, timestamp);
+            } catch (SQLException ex) {
+                Logger.getLogger(MyTime.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //
+    }
+
     /**
      * Rather Important
+     *
      * @param date
      * @param dateFormat
-     * @return 
+     * @return
      */
     public static String javaDateToGivenFormat(Date date, String dateFormat) {
         return millisToDateConverter("" + date.getTime(), dateFormat);
@@ -52,6 +89,10 @@ public class MyTime {
             }
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("" + define_date_format("2017-10-20"));
     }
     /**
      * It's best not to change anything here
@@ -157,8 +198,6 @@ public class MyTime {
         long ms_date2 = dateToMillisConverter3(date2, date_format2);
         return ms_date1 - ms_date2;
     }
-
-   
 
     /**
      * Usage example: get_date_time_minus_some_time_in_ms("2014-03-21
@@ -337,11 +376,6 @@ public class MyTime {
         Date d = cal.getTime();
 //        System.out.println(f1.format(d));
         return f1.format(d);
-    }
-    
-     public static void main(String[] args) {
-         System.out.println("" + get_proper_date_adjusted_format(3));
-         
     }
 
     /**
