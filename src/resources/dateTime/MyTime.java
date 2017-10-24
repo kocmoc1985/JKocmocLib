@@ -90,10 +90,6 @@ public class MyTime {
         }
         return null;
     }
-
-    public static void main(String[] args) {
-        System.out.println("" + define_date_format("2017-10-20"));
-    }
     /**
      * It's best not to change anything here
      */
@@ -390,6 +386,25 @@ public class MyTime {
         Date d = cal.getTime();
         return f1.format(d);
     }
+    
+     public static String millisToDefaultDate(long millis) {
+        TimeZone tz = TimeZone.getDefault();
+        Calendar cal = Calendar.getInstance(tz);
+        //
+        int style = 3;
+        //
+        Locale locale = Locale.getDefault();
+        //
+        if(locale == Locale.GERMAN || locale == Locale.GERMANY || locale.getCountry().equals("CH")){
+            style = 2;
+        }
+        //
+        DateFormat f1 = DateFormat.getDateInstance(style);
+        cal.setTimeInMillis(millis);
+        Date d = cal.getTime();
+        return f1.format(d);
+    }
+     
 
     /**
      * SUPER!
@@ -435,6 +450,10 @@ public class MyTime {
         return f1.format(d);
     }
 
+    
+
+    
+    
     /**
      *
      * @param date_format
