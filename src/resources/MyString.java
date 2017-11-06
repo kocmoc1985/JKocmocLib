@@ -28,7 +28,13 @@ public class MyString {
     }
     
     public static String celcius(){
-        return "\u00b0C";
+        return "\u00b0C\r";
+    }
+    
+    
+    public static void main(String[] args) {
+       String str = celcius();
+        System.out.println("" + str.contains("\r"));
     }
     
     
@@ -119,10 +125,7 @@ public class MyString {
         return String.format(format, (Object[]) arr);
     }
     
-    public static void main(String[] args) {
-        System.out.println("" +string_to_table_view("aa.zip", "45456kb", "2016-10-31"));
-        System.out.println("" +string_to_table_view("aaaaaa.zip", "45456kb", "2016-10-31"));
-    }
+    
 
     /**
      * Extract values from the result gained with "string_to_table_view"

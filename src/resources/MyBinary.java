@@ -4,6 +4,7 @@
  */
 package resources;
 
+import java.awt.Rectangle;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -61,6 +62,8 @@ public class MyBinary {
     public static String decimal_to_binary(int nr) {
         return "" + Integer.toBinaryString(nr);
     }
+    
+   
 
     /**
      * Omvandlar Sträng i binär form till tal
@@ -247,6 +250,7 @@ public class MyBinary {
             Logger.getLogger(MyBinary.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 
     private static Object fileToObject(String path) throws IOException, ClassNotFoundException {
         FileInputStream fas = new FileInputStream(path);

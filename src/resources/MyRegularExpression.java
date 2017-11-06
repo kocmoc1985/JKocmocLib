@@ -14,10 +14,10 @@ import java.util.regex.Pattern;
 public class MyRegularExpression {
 
     /**
-     * This one is very good but requires high capacity
-     * when used in a loop
+     * This one is very good but requires high capacity when used in a loop
+     *
      * @param strToTest
-     * @return 
+     * @return
      */
     public static boolean isIpAdress(String strToTest) {
         String IPADDRESS_PATTERN =
@@ -31,26 +31,68 @@ public class MyRegularExpression {
             return false;
         }
     }
-    
+
     /**
-     * This one is not using "Reg Expressions"
-     * but might be rather effective
+     * This one is not using "Reg Expressions" but might be rather effective
+     *
      * @param strToTest
-     * @return 
+     * @return
      */
-    public static boolean isIp(String strToTest){
+    public static boolean isIp(String strToTest) {
         String[] arr = strToTest.split("\\.");
         return arr.length == 4;
     }
-    
-     public static boolean checkIfDate(String value_yyyy_MM_dd){
-        if(value_yyyy_MM_dd.matches("\\d{4}-\\d{2}-\\d{2}")){
+
+    public static boolean checkIfDate(String value_yyyy_MM_dd) {
+        if (value_yyyy_MM_dd.matches("\\d{4}-\\d{2}-\\d{2}")) {
             return true;
         }
         return false;
     }
+
+    /**
+     * https://txt2re.com/
+     * Checks against format 100.0 (5 chars)
+     *
+     * @return
+     */
+    public static boolean checkIfTemperature(String temp) {
+        if (temp.matches("\\d{3}.\\d{1}")) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * https://txt2re.com/
+     * @param temp
+     * @return 
+     */
+    public static boolean checkIfIngredient(String temp) {
+        if (temp.matches("\\d{5}")) {
+            return true;
+        }
+        return false;
+    }
+
     
+    /**
+     * https://txt2re.com/
+     * 
+     * Checks for 00-8-N752
+     * two digits - one digit - digit or letter - 3 digits
+     * 
+     * @param temp
+     * @return 
+     */
+    public static boolean checkIfRecipe(String temp) {
+        if (temp.matches("(\\d{2})(-)(\\d{1})(-)(\\w{1})(\\d+)")) {
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
-        System.out.println("" + isIpAdress("10.87.0.256"));
+        System.out.println("" + checkIfRecipe("00-0-N752"));
     }
 }
