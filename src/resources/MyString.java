@@ -263,6 +263,18 @@ public class MyString {
         int b = str.length();
         return str.substring(a, b);
     }
+    
+    public static String getPrevLastChar(String str) {
+        int a = str.length() - 2;
+        int b = str.length() - 1;
+        return str.substring(a, b);
+    }
+
+    public static String getStringMinusTwoLastChars(String str) {
+        int a = 0;
+        int b = str.length() - 2;
+        return str.substring(a, b);
+    }
  
     public static String delete_last_letter_in_string(String str) {
         int a = str.length() - 1;
