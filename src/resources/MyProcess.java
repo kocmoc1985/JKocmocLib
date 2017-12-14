@@ -31,6 +31,50 @@ import javax.swing.JOptionPane;
 public class MyProcess {
 
     /**
+     * This is very powerful RUN METHOD
+     * It also works when a program should be run as from it's "Home" dir
+     * "." -> Current dir, ".." -> step out one dir
+     * @param path
+     * @param application_to_run_name 
+     */
+    public static void find_and_run_application(String path, String application_to_run_name) {
+        //
+        File[] f = new File(path).listFiles();
+        //
+        for (File file : f) {
+            if (file.isDirectory()) {
+                find_and_run_application(file.getPath(), application_to_run_name);
+            } else if (file.getName().toLowerCase().trim().equals(application_to_run_name.toLowerCase().trim())) {
+                try {
+                    run_application_exe_or_jar(application_to_run_name, file.getParent());
+                } catch (IOException ex) {
+                    Logger.getLogger(MyProcess.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    
+    public static void main(String[] args) {
+      find_and_run_application("..", "statistic.exe");
+    }
+
+//    private void run_application_exe_or_jar(String application_to_run_name, String path) throws IOException {
+//        String[] commands = new String[3];
+//        if (application_to_run_name.contains(".jar")) {
+//            commands[0] = "java";
+//            commands[1] = "-jar";
+//            commands[2] = application_to_run_name;
+//        } else {
+//            commands[0] = path + "/" + application_to_run_name;
+//            commands[1] = "";
+//            commands[2] = "";
+//        }
+//        ProcessBuilder builder = new ProcessBuilder(commands);
+//        builder.directory(new File(path));
+//        builder.start();
+//    }
+    
+    /**
      * Runs both .exe & .jar applications. If you run .exe from the same dir use
      * "." for path parameter
      *
@@ -54,6 +98,8 @@ public class MyProcess {
         builder.directory(new File(path));
         builder.start();
     }
+    
+     
 
     /**
      * f you run .exe from the same dir use * "." for path parameter
@@ -113,6 +159,8 @@ public class MyProcess {
     public static void run_application_with_associated_application(File file) throws IOException {
         Desktop.getDesktop().open(file);
     }
+    
+    
 
     /**
      * Can be very useful
@@ -163,10 +211,13 @@ public class MyProcess {
         }
         try {
             Process p = Runtime.getRuntime().exec(path);
+            
         } catch (IOException ex) {
             System.out.println("" + ex);
         }
     }
+    
+    
 
     /**
      *
@@ -309,6 +360,9 @@ public class MyProcess {
         ProcessBuilder builder = new ProcessBuilder(commands);
         builder.start();
     }
+    
+    
+    
 
     /**
      * Launches the ping
@@ -356,13 +410,7 @@ public class MyProcess {
         return true;
     }
 
-    public static void main(String[] args) {
-        try {
-            System.out.println("" + shut_down_remote_pc__with_catching_output("10.87.0.45"));
-        } catch (IOException ex) {
-            Logger.getLogger(MyProcess.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+   
 
     public static void restart() throws IOException {
         Runtime runtime = Runtime.getRuntime();

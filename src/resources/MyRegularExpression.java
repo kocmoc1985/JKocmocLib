@@ -62,6 +62,13 @@ public class MyRegularExpression {
         }
         return false;
     }
+    
+    public static boolean checkIfbetween_0_to_100(String temp) {
+        if (temp.matches("^[1-9][0-9]?$|^100$")) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * https://txt2re.com/
