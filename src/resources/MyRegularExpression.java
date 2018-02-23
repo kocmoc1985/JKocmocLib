@@ -32,6 +32,15 @@ public class MyRegularExpression {
         }
     }
 
+    public static void isOpcUaUrl(String strToTest) {
+        String regex = "(opc\\.tcp)(:)(\\/)(\\/)((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])(:)(\\d+)";
+
+    }
+
+    public static void main(String[] args) {
+        isOpcUaUrl(null);
+    }
+
     /**
      * This one is not using "Reg Expressions" but might be rather effective
      *
@@ -51,8 +60,7 @@ public class MyRegularExpression {
     }
 
     /**
-     * https://txt2re.com/
-     * Checks against format 100.0 (5 chars)
+     * https://txt2re.com/ Checks against format 100.0 (5 chars)
      *
      * @return
      */
@@ -62,7 +70,7 @@ public class MyRegularExpression {
         }
         return false;
     }
-    
+
     public static boolean checkIfbetween_0_to_100(String temp) {
         if (temp.matches("^[1-9][0-9]?$|^100$")) {
             return true;
@@ -72,8 +80,9 @@ public class MyRegularExpression {
 
     /**
      * https://txt2re.com/
+     *
      * @param temp
-     * @return 
+     * @return
      */
     public static boolean checkIfIngredient(String temp) {
         if (temp.matches("\\d{5}")) {
@@ -82,24 +91,18 @@ public class MyRegularExpression {
         return false;
     }
 
-    
     /**
      * https://txt2re.com/
-     * 
-     * Checks for 00-8-N752
-     * two digits - one digit - digit or letter - 3 digits
-     * 
+     *
+     * Checks for 00-8-N752 two digits - one digit - digit or letter - 3 digits
+     *
      * @param temp
-     * @return 
+     * @return
      */
     public static boolean checkIfRecipe(String temp) {
         if (temp.matches("(\\d{2})(-)(\\d{1})(-)(\\w{1})(\\d+)")) {
             return true;
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        System.out.println("" + checkIfRecipe("00-0-N752"));
     }
 }
