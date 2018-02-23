@@ -28,7 +28,9 @@ import java.util.logging.Logger;
 public class MyFile {
 
     
-    
+    public static String[] splitStringWithPoint(String strToSplit) {
+        return strToSplit.split("\\.");
+    }
 
     /**
      * THIS IS EXTREAMLY IMPORTANT WHEN WORKING WITH FILES

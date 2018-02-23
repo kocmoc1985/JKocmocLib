@@ -50,10 +50,12 @@ public class My_Awt_Swing {
                 }
                 //
                 component.requestFocus();
+                //
             }
         };
-
+        //
         x.start();
+        //
     }
     
     /**

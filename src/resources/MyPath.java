@@ -23,6 +23,10 @@ public class MyPath {
         return System.getProperty("user.home") + "\\" + "Desktop";
     }
     
+    public static String[] splitStringWithPoint(String strToSplit) {
+        return strToSplit.split("\\.");
+    }
+    
     public static void previousPathExample(){
         try {
             MyProcess.run_application_exe_or_jar("pixie.exe", "../"); //step out one directory
