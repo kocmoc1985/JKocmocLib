@@ -14,6 +14,12 @@ import java.util.regex.Pattern;
 public class MyRegularExpression {
 
     /**
+     * Checks between 1 - 65535
+     */
+    public static void portPattern(){
+        String x = "([1-9]|[1-8][0-9]|9[0-9]|[1-8][0-9]{2}|9[0-8][0-9]|99[0-9]|[1-8][0-9]{3}|9[0-8][0-9]{2}|99[0-8][0-9]|999[0-9]|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])";
+    }
+    /**
      * This one is very good but requires high capacity when used in a loop
      *
      * @param strToTest
@@ -32,8 +38,12 @@ public class MyRegularExpression {
         }
     }
 
+    /**
+     * OBS! Case insensitive -> (?i)
+     * @param strToTest 
+     */
     public static void isOpcUaUrl(String strToTest) {
-        String regex = "(opc\\.tcp)(:)(\\/)(\\/)((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])(:)(\\d+)";
+        String regex = "(?i)(opc\\.tcp)(:)(\\/)(\\/)((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))(?![\\d])(:)(\\d+)";
 
     }
 
