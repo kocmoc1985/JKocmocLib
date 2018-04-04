@@ -25,6 +25,16 @@ import java.util.logging.Logger;
  * @author Administrator
  */
 public class MyDS {
+    
+    public  static void constraintBufferSize(LinkedList<Properties> buffer, int maxSize) {
+        if (buffer != null) {
+            if (buffer.size() >= maxSize) {
+                while (buffer.size() >= maxSize) {
+                    buffer.pollFirst();
+                }
+            }
+        }
+    }
 
     public static char[] reverseCharArr(char[] arr) {
         char[] arr_return = new char[arr.length];
@@ -301,10 +311,17 @@ public class MyDS {
     }
 
     public static void test() {
-        HashSet hashSet = new HashSet();
-        boolean y = hashSet.add(7);
-        boolean x = hashSet.add(7);
+        LinkedList<Integer>linkedList = new LinkedList<Integer>();
+        linkedList.add(1);
+        linkedList.add(2);
+        linkedList.add(3);
+        linkedList.add(4);
+        linkedList.add(5);
+        linkedList.add(6);
+        linkedList.add(7);
         //
-        System.out.println("" + x + "  " + y);
+        int x = linkedList.poll();
+        //
+        System.out.println("x: " + x);
     }
 }

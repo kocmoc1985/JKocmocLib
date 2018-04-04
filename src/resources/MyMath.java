@@ -61,10 +61,7 @@ public class MyMath {
         return Double.valueOf(twoDForm.format(number));
     }
 
-    public static void main(String[] args) {
-
-        System.out.println("" + roundingOfDoubleProperFunction(1.34));
-    }
+  
 
     /**
      * This one is almost the same as above but the DecimalFormatSymbol is
@@ -165,8 +162,19 @@ public class MyMath {
      * @return String random value
      */
     public static String random() {
-        int x = (int) ((Math.random() * 100) + 1);
+        int x = (int) ((Math.random() * 5000) + 100);//((Math.random() * 100) + 1)
         return "" + x;
+    }
+    
+    public static void randomDelay(){
+        int x = (int) ((Math.random() * 1000) + 1000);
+    }
+    
+      public static void main(String[] args) {
+          for (int i = 0; i < 100; i++) {
+              System.out.println("" + random());
+          }
+        
     }
 
     /**
