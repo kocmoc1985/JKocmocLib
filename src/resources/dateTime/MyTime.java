@@ -235,6 +235,8 @@ public class MyTime {
         formatter = new SimpleDateFormat(date_format_2);
         return formatter.format(calendar.getTime());
     }
+    
+    
 
     /**
      *

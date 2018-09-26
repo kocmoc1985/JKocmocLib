@@ -5,10 +5,12 @@
 package resources.visual;
 
 import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
@@ -16,46 +18,38 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
  * @author KOCMOC
  */
-public class Test extends JFrame implements ActionListener {
-
-    public static void main(String[] args) {
-        Test t = new Test();
-    }
+public class Test extends JFrame {
 
     public Test() throws HeadlessException {
-        this.setSize(200, 200);
-        this.setLayout(new GridLayout(1, 1));
-        //
-        JComboBox comboBox = new JComboBox(new DefaultComboBoxModel());
-        this.add(comboBox);
-        //
-        addActionListenerToJComboBoxButton(comboBox, this);
-        //
-        this.setVisible(true);
-    }
-    
-    
-    public static HashMap<JComboBox, JButton> JCOMBOBOX_MAP = new HashMap<JComboBox, JButton>();
+    setSize(400, 200);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setLayout(new FlowLayout(FlowLayout.LEFT));
 
-    public static void addActionListenerToJComboBoxButton(JComboBox c, ActionListener al) {
-        Component[] c_arr = c.getComponents();
-        for (Component component : c_arr) {
-            if (component instanceof JButton) {
-                JButton button = (JButton) component;
-                button.addActionListener(al);
-                JCOMBOBOX_MAP.put(c, button);
-                System.out.println("");
-            }
-        }
-    }
+    JLabel usernameLabel = new JLabel("Username: ");
+    JLabel passwordLabel = new JLabel("Password: ");
+    JTextField usernameField = new JTextField(20);
+    JPasswordField passwordField = new JPasswordField(20);
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        System.out.println("YES");
-    }
+    usernameLabel.setDisplayedMnemonic(KeyEvent.VK_U);
+    usernameLabel.setLabelFor(usernameField);
+    passwordLabel.setDisplayedMnemonic(KeyEvent.VK_P);
+    passwordLabel.setLabelFor(passwordField);
+
+    getContentPane().add(usernameLabel);
+    getContentPane().add(usernameField);
+    getContentPane().add(passwordLabel);
+    getContentPane().add(passwordField);
+  }
+
+  public static void main(String[] args) {
+    new Test().setVisible(true);
+  }
 }

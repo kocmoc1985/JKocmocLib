@@ -22,23 +22,31 @@ public class MyString {
 
     private static Charset charset_g = Charset.forName("ASCII");
 
-    
-    public static String cubicMeter(){
+    public static String cubicMeter() {
         return "kg/m&#179";
     }
-    
-    public static String celcius(){
+
+    public static String celcius() {
         return "\u00b0C\r";
     }
-    
-    
-    public static void main(String[] args) {
-       String str = celcius();
-        System.out.println("" + str.contains("\r"));
+
+    public static void replaceBrackets() {
+        String x = "select * from Main where [Name]='Ihti'";
+        x = x.replaceAll("\\[", "`");
+        x = x.replaceAll("\\]", "`");
+        System.out.println("" + x);
     }
-    
-    
-    
+
+    public static void replaceNewLine_slash_n() {
+        String x = "\naaaa\naaaaa";
+        x = x.replaceAll("(\r\n|\n)", " ");
+        System.out.println("" + x);
+    }
+
+    public static void main(String[] args) {
+
+    }
+
     public static boolean getIfStringContains(String toBeSearched, String toFind) {
         if (toBeSearched.regionMatches(0, toFind, 0, toFind.length())) {
             return true;
@@ -47,7 +55,6 @@ public class MyString {
         }
     }
 
-    
     public static String extractTableName(String q) {
         Pattern p = Pattern.compile("from\\s+(?:\\w+\\.)*(\\w+)($|\\s+[WHERE,JOIN,START\\s+WITH,ORDER\\s+BY,GROUP\\s+BY])", Pattern.CASE_INSENSITIVE);
 
@@ -57,7 +64,6 @@ public class MyString {
         }
         return null;
     }
-    
 
     /**
      * Good to remember
@@ -124,8 +130,6 @@ public class MyString {
         String arr[] = {file_name, size, date};
         return String.format(format, (Object[]) arr);
     }
-    
-    
 
     /**
      * Extract values from the result gained with "string_to_table_view"
@@ -263,7 +267,7 @@ public class MyString {
         int b = str.length();
         return str.substring(a, b);
     }
-    
+
     public static String getPrevLastChar(String str) {
         int a = str.length() - 2;
         int b = str.length() - 1;
@@ -275,7 +279,7 @@ public class MyString {
         int b = str.length() - 2;
         return str.substring(a, b);
     }
- 
+
     public static String delete_last_letter_in_string(String str) {
         int a = str.length() - 1;
         return str.substring(0, a);
