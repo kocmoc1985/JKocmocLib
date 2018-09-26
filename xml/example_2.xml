@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<sql>
+		<host>localhost</host>
+		<port>1433</port>
+		<databaseName>MixCont</databaseName>
+		<user>mixcont</user>
+		<pass>mixcont</pass>
+	</sql>
+
+</root>

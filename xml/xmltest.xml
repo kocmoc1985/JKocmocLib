@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<note>
+<type1>
+    <to>Tove</to>
+    <from>Jani</from>
+    <heading>Reminder</heading>
+    <body>Don't forget me this weekend!</body>
+</type1>
+
+<type2>
+<to>Bove</to>
+    <from>Tani</from>
+    <heading>Beminder</heading>
+    <body>Don't forget ccccccc this weekend!</body>
+</type2>
+
+</note>

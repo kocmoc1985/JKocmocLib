@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class>
+	<variables>
+		<var type="int" name="length" visibility="private">18</var>
+		<var type="String" name="conn_string" visibility="private">localhost/1433/TEST_DB/sa/0000</var>
+	</variables>
+
+	<methods>
+	
+	</methods>
+</class>

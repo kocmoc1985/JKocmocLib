@@ -1,0 +1,52 @@
+
+<sql>
+<MainTable>
+<column name="BatchID" type="int">BatchID
+<row n="1">131</row>
+<row n="2">132</row>
+<row n="3">141</row>
+<row n="4">142</row>
+</column>
+<column name="Datum" type="nchar">Datum
+<row n="1">2014-05-21 15:37:47</row>
+<row n="2">2014-05-21 15:41:22</row>
+<row n="3">2014-05-21 15:47:39</row>
+<row n="4">2014-05-21 15:48:54</row>
+</column>
+<column name="RecipeID" type="nchar">RecipeID
+<row n="1">93000141072</row>
+<row n="2">93000141072</row>
+<row n="3">93000141072</row>
+<row n="4">93000141072</row>
+</column>
+<column name="OrderNr" type="nchar">OrderNr
+<row n="1">129408</row>
+<row n="2">129408</row>
+<row n="3">129408</row>
+<row n="4">129408</row>
+</column>
+<column name="BatchNr" type="nchar">BatchNr
+<row n="1">23</row>
+<row n="2">23</row>
+<row n="3">24</row>
+<row n="4">24</row>
+</column>
+<column name="TorqActL" type="nchar">TorqActL
+<row n="1">75.9</row>
+<row n="2">67.1</row>
+<row n="3">72.6</row>
+<row n="4">67.1</row>
+</column>
+<column name="Line" type="nchar">Line
+<row n="1">20</row>
+<row n="2">20</row>
+<row n="3">20</row>
+<row n="4">20</row>
+</column>
+<column name="Duration" type="nchar">Duration
+<row n="1">507</row>
+<row n="2">710</row>
+<row n="3">194</row>
+<row n="4">0</row>
+</column>
+</MainTable></sql>

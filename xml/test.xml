@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Test>
+<child1 chldAttr1="attr1" chldAttr2="attr2">text child1</child1>
+<child2 chldAttr1="attr1" chldAttr2="attr2">text child2</child2>
+<parent parent="yes" children="2">
+</parent>
+</Test>

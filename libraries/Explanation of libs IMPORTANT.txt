@@ -1,0 +1,5 @@
+[1]rxtxParallel.dll  & rxtxSerial.dll & RXTXcomm.jar - for COM port communication
+
+[2]jfreechart-1.0.13.jar needs jcommon-1.0.16.jar to work properly -->>> OBS!!!
+
+[3]jRegistryKey.jar needs jRegistryKey.dll which shall be placed in the root of the project
