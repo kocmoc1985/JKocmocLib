@@ -28,6 +28,10 @@ import java.net.URISyntaxException;
  */
 public class MyInternals {
     
+    /**
+     * Java version, JavaVersion, Version Java, java
+     * @return 
+     */
     public static String getJavaVersion() {
         return System.getProperty("java.version");
     }
@@ -38,6 +42,16 @@ public class MyInternals {
         return Double.parseDouble(ver);
     }
     
+       public static void main(String[] args) {
+        System.out.println("" + getJavaVersion());
+    }
+    
+    public static void shut_down_immediately() throws IOException {
+        Runtime runtime = Runtime.getRuntime();
+        Process proc = runtime.exec("shutdown -s -t 0");
+        System.exit(0);
+    }
+    
     public static String getOperatingSystem() {
         return System.getProperty("os.name");
     }
@@ -46,9 +60,7 @@ public class MyInternals {
         return System.getProperty("user.name");
     }
     
-    public static void main(String[] args) {
-        System.out.println("" + getJavaVersion2());
-    }
+ 
     
     public static boolean isWindows() {
         return System.getProperty("os.name").toLowerCase().contains("win");
@@ -60,11 +72,7 @@ public class MyInternals {
      * @tags shut_down_computer, shut down, shutdown,shut_down, turn of
      * computer,turn_off_computer, turn of
      */
-    public static void shut_down_immediately() throws IOException {
-        Runtime runtime = Runtime.getRuntime();
-        Process proc = runtime.exec("shutdown -s -t 0");
-        System.exit(0);
-    }
+    
 
     /**
      * Put computer into hibernation mode

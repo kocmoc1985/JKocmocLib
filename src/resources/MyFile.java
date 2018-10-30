@@ -44,6 +44,7 @@ public class MyFile {
 
     private static void get_path_examples() {
         File f = new File("xml/testDir/testDir2/dd.xml"); //xml/testDir/testDir2/dd.xml
+        System.out.println("getName() = " + f.getName());
         System.out.println("getPath() = " + f.getPath());
         System.out.println("getAbsolutePath() = " + f.getAbsolutePath());
         System.out.println("getParent() = " + f.getParent());

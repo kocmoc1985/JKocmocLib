@@ -157,6 +157,13 @@ public class MyString {
         String x = String.format("select * from %s where %s = %s", "batches", "id", "10");
         System.out.println("" + x);
     }
+    
+     public String stringFormat(String company, String ipLocal, String userName,
+            String os, String ver, String launchedApp) {
+        String format = "%1$-15s %2$-15s %3$-20s %4$-20s %5$-15s %6$-30s";
+        String arr[] = {company, ipLocal, userName, os, ver, launchedApp};
+        return String.format(format, (Object[]) arr);
+    }
 
     /**
      * #RTF, .rtf , show rtf, show RTF, display RTF, display rtf
