@@ -20,6 +20,15 @@ import java.util.logging.Logger;
  * @author KOCMOC
  */
 public class MyRegistry {
+    
+    public static void edititing_existing_registry_key______() {
+        RegistryKey r = new RegistryKey(RootKey.HKEY_CURRENT_USER, "Software\\TightVNC\\Server\\Test");
+        if (r.exists() == false) {
+            r.create();
+        }
+        RegistryValue v = new RegistryValue("UseVncAuthentication", ValueType.REG_DWORD, 0);
+        r.setValue(v);
+    }
 
     public static void edititing_existing_registry_key() {
         RegistryKey r = new RegistryKey(RootKey.HKEY_CURRENT_USER, "Software\\TightVNC\\Server\\Test");
