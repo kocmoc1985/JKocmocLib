@@ -151,11 +151,21 @@ public class MyString {
     }
 
     /**
+     * %s - insert a string
+     * %d - insert a signed integer (decimal)
+     * %f - insert a real number, standard notation
      * This one is super good
      */
     public static void stringFormat() {
         String x = String.format("select * from %s where %s = %s", "batches", "id", "10");
         System.out.println("" + x);
+    }
+
+    public static void prepareStatement() {
+        Object[]arr = new Object[10];
+        String x = String.format("update input set "
+                + "SIGNAL1=%s,SIGNAL2=%s,SIGNAL3=%s,SIGNAL4=%s,SIGNAL5=%s,SIGNAL6=%s,SIGNAL7=%s,SIGNAL8=%s,SIGNAL9=%s,SIGNAL10=%s",
+                arr);
     }
 
     /**
