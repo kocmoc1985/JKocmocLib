@@ -22,6 +22,10 @@ public class MyString {
 
     private static Charset charset_g = Charset.forName("ASCII");
 
+    public static String enloseInMySqlSlashes(String str){
+        return "`" + str + "`";
+    }
+    
     public static String cubicMeter() {
         return "kg/m&#179";
     }

@@ -27,7 +27,6 @@ import java.util.logging.Logger;
  */
 public class MyFile {
 
-    
     public static String[] splitStringWithPoint(String strToSplit) {
         return strToSplit.split("\\.");
     }
@@ -66,6 +65,17 @@ public class MyFile {
 //        System.out.println("file = " + searched_file);
     }
 
+    public static String getFileExtension(String fileName) {
+        //
+        int i = fileName.lastIndexOf('.');
+        //
+        if (i > 0) {
+            return fileName.substring(i + 1);
+        }
+        //
+        return null;
+    }
+
     public static boolean get_if_file_exist(String path) {
         File f = new File(path);
         return f.exists();
@@ -83,7 +93,7 @@ public class MyFile {
 
     public static File searched_file;
     public static boolean file_found = false;
-    
+
     /**
      * This method recursively finds a file, you should call this method with
      * specifying the initial folder to look in like: find_file(String path,
@@ -165,12 +175,12 @@ public class MyFile {
         }
     }
 
-     public static String file_get_date_created(String path) throws IOException {
+    public static String file_get_date_created(String path) throws IOException {
         Path p1 = Paths.get(path);
         BasicFileAttributes attr = Files.readAttributes(p1, BasicFileAttributes.class);
         return "" + attr.creationTime();
     }
-    
+
     /**
      * Uses recursion
      *

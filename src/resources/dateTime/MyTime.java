@@ -407,16 +407,38 @@ public class MyTime {
         return f1.format(d);
     }
      
+      public static String get_date_time_plus_some_time_in_ms_temp(String date, String date_format, long time_to_minus) {
+        long ms = dateToMillisConverter3(date, date_format);
+        long new_date_in_ms = ms + time_to_minus;
+        String new_date = millisToDateConverter("" + new_date_in_ms, date_format);
+        return new_date;
+    }
 
-    /**
-     * SUPER!
-     *
-     * @return
-     */
     public static String get_proper_date_time_same_format_on_all_computers() {
         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime());
+    }
+    
+    public static String get_today_with_00_00_00() {
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        return formatter.format(calendar.getTime()) + " 00:00:00";
+    }
+    
+    public static String get_today_plus_24h() {
+       String dateToday = get_today_with_00_00_00();
+       return get_date_time_plus_some_time_in_ms(dateToday, "yyyy-MM-dd HH:mm:ss", 86400000);
+    }
+    
+    
+    
+    public static void main(String[] args) {
+        System.out.println("" + get_proper_date_time_same_format_on_all_computers());
+        System.out.println("" + get_today_with_00_00_00());
+        System.out.println("" + get_today_plus_24h());
+//        System.out.println("PROD_DATE>='2018-11-28 00:00:00.0' AND PROD_DATE<='2018-11-29 13:24:48.75'");
+//        System.out.println("PROD_DATE>='" + get_today_with_00_00_00() + "' AND AND PROD_DATE <='" + get_today_plus_24h() +"' ");
     }
 
     public static String get_proper_date_given_format(String format) {

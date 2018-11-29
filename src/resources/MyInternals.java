@@ -27,41 +27,48 @@ import java.net.URISyntaxException;
  * @author Administrator
  */
 public class MyInternals {
-    
+
+    /**
+     * Also checks if it is 32 or 64bit.
+     * @return 
+     */
+    public static String getJavaVersionAndBit() {
+        return System.getProperty("java.version") + "/" + System.getProperty("sun.arch.data.model");
+    }
+
     /**
      * Java version, JavaVersion, Version Java, java
-     * @return 
+     *
+     * @return
      */
     public static String getJavaVersion() {
         return System.getProperty("java.version");
     }
-    
+
     public static Double getJavaVersion2() {
         String ver = System.getProperty("java.version");
         ver = ver.substring(0, 3);
         return Double.parseDouble(ver);
     }
-    
-       public static void main(String[] args) {
-        System.out.println("" + getJavaVersion());
+
+    public static void main(String[] args) {
+        System.out.println("" + getJavaVersionAndBit());
     }
-    
+
     public static void shut_down_immediately() throws IOException {
         Runtime runtime = Runtime.getRuntime();
         Process proc = runtime.exec("shutdown -s -t 0");
         System.exit(0);
     }
-    
+
     public static String getOperatingSystem() {
         return System.getProperty("os.name");
     }
-    
+
     public static String getUserName() {
         return System.getProperty("user.name");
     }
-    
- 
-    
+
     public static boolean isWindows() {
         return System.getProperty("os.name").toLowerCase().contains("win");
     }
@@ -72,8 +79,6 @@ public class MyInternals {
      * @tags shut_down_computer, shut down, shutdown,shut_down, turn of
      * computer,turn_off_computer, turn of
      */
-    
-
     /**
      * Put computer into hibernation mode
      *
@@ -112,7 +117,7 @@ public class MyInternals {
     public static void run_application_with_associated_application(File file) throws IOException {
         Desktop.getDesktop().open(file);
     }
-    
+
     public static void openDirWithExploerer(String path) {
         if (path == null) {
             return;
@@ -121,7 +126,7 @@ public class MyInternals {
         String[] arr = {"cmd", "/k", "start", "\"" + "runas" + "\"", "explorer", path};
         runWithBuilder(arr);
     }
-    
+
     public static void runWithBuilder(String[] commands) {
         ProcessBuilder builder = new ProcessBuilder(commands);
         try {
@@ -200,13 +205,13 @@ public class MyInternals {
      * @return
      */
     public static Component findPrevFocus() {
-        
+
         Component c = KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-        
+
         Container root = c.getFocusCycleRootAncestor();
-        
+
         FocusTraversalPolicy policy = root.getFocusTraversalPolicy();
-        
+
         Component prevFocus = policy.getComponentBefore(root, c);
         if (prevFocus == null) {
             prevFocus = policy.getDefaultComponent(root);
@@ -235,11 +240,11 @@ public class MyInternals {
      * @return
      */
     public static boolean double_click_mouse_event_helper(long first_click, long second_click) {
-        
+
         if (System.currentTimeMillis() - first_click > Math.abs(300)) {
             first_click = 0;
         }
-        
+
         if (first_click == 0) {
             first_click = System.currentTimeMillis();
             System.out.println("first click" + System.currentTimeMillis());
@@ -247,7 +252,7 @@ public class MyInternals {
             second_click = System.currentTimeMillis();
             System.out.println("second click" + System.currentTimeMillis());
             System.out.println("Second - First = " + (second_click - first_click));
-            
+
             if (second_click - first_click < 150) {
                 // To do code
                 return true;
@@ -303,7 +308,7 @@ public class MyInternals {
         final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
         return ste[ste.length - 1 - depth].getMethodName();
     }
-    
+
     public static void cursorSetWaitCursor(boolean yesno) {
         Cursor defCursor = Cursor.getDefaultCursor();
         Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
@@ -322,7 +327,7 @@ public class MyInternals {
             System.exit(0);
         }
     }
-    
+
     private static void wait_(int i) {
         try {
             Thread.sleep(i);
