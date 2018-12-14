@@ -26,6 +26,19 @@ public class MyTime {
 
     private static long[] date_list = {new Long("1352475262539"), new Long("1352474779836"), new Long("1352452070961")};
 
+    public static boolean isSaturdayOrSunday() {
+        //
+        Calendar c = Calendar.getInstance();
+        //
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        //
+//        System.out.println("day of week: " + dayOfWeek);
+        //
+        return dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY;
+    }
+    
+    
+    
     public static Timestamp dateToSqlTimeStamp(String date) {
         //
         String dateFormat = define_date_format(date);
