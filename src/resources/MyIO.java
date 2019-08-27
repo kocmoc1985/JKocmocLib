@@ -28,8 +28,6 @@ public class MyIO {
         //Very Important this makes that file is not in use after this operation
         out.flush();
         out.close();
-        fstream.flush();
-        fstream.close();
     }
 
 
@@ -107,6 +105,7 @@ public class MyIO {
         }
         //
         System.out.println("ArrayList.toString() =  " + list.toString());
+        //
         return list;
     }
 

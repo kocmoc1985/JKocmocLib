@@ -17,8 +17,11 @@ import javax.swing.JOptionPane;
 import java.util.Locale;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -325,6 +328,49 @@ public class MyInternals {
         boolean x = JOptionPane.showConfirmDialog(null, question, dialogTitle, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
         if (x) {
             System.exit(0);
+        }
+    }
+    
+    /**
+     * @tags grab_output, grab_out_put, grab output
+     * @param path_to_executing_app
+     * @param serviceName
+     * @param expressionToMatch
+     * @return
+     * @throws IOException
+     */
+    public boolean check_if_service_running(String path_to_executing_app, String serviceName, String expressionToMatch) throws IOException {
+        String[] cmd = {path_to_executing_app, "query", serviceName};//c:/windows/system32/sc.exe
+
+        String line;
+        InputStream stdout = null;
+
+        // launch EXE and grab stdin/stdout and stderr
+        Process process = Runtime.getRuntime().exec(cmd);
+        stdout = process.getInputStream();
+
+        // clean up if any output in stdout
+        BufferedReader brCleanUp = new BufferedReader(new InputStreamReader(stdout));
+        while ((line = brCleanUp.readLine()) != null) {
+//                System.out.println("---------------------->" + line);
+            if (line.toLowerCase().contains(expressionToMatch.toLowerCase())) {
+                if (line.contains("RUNNING")) {
+                    System.out.println("service = '" + serviceName + "' is running");
+                    brCleanUp.close();
+                    return true;
+                }
+            }
+//            System.out.println("[Stdout] " + line);
+        }
+        return false;
+    }
+    
+    public static void run_service(String path_to_program, String p1, String p2) {
+        String[] cmd = {path_to_program, p1, p2};
+        try {
+            Process process = Runtime.getRuntime().exec(cmd);
+        } catch (IOException ex) {
+            Logger.getLogger(ServiceRunning.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

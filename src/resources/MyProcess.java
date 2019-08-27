@@ -31,11 +31,11 @@ import javax.swing.JOptionPane;
 public class MyProcess {
 
     /**
-     * This is very powerful RUN METHOD
-     * It also works when a program should be run as from it's "Home" dir
-     * "." -> Current dir, ".." -> step out one dir
+     * This is very powerful RUN METHOD It also works when a program should be
+     * run as from it's "Home" dir "." -> Current dir, ".." -> step out one dir
+     *
      * @param path
-     * @param application_to_run_name 
+     * @param application_to_run_name
      */
     public static void find_and_run_application(String path, String application_to_run_name) {
         //
@@ -53,10 +53,6 @@ public class MyProcess {
             }
         }
     }
-    
-    public static void main(String[] args) {
-      find_and_run_application("..", "statistic.exe");
-    }
 
 //    private void run_application_exe_or_jar(String application_to_run_name, String path) throws IOException {
 //        String[] commands = new String[3];
@@ -73,7 +69,6 @@ public class MyProcess {
 //        builder.directory(new File(path));
 //        builder.start();
 //    }
-    
     /**
      * Runs both .exe & .jar applications. If you run .exe from the same dir use
      * "." for path parameter
@@ -98,8 +93,6 @@ public class MyProcess {
         builder.directory(new File(path));
         builder.start();
     }
-    
-     
 
     /**
      * f you run .exe from the same dir use * "." for path parameter
@@ -159,8 +152,15 @@ public class MyProcess {
     public static void run_application_with_associated_application(File file) throws IOException {
         Desktop.getDesktop().open(file);
     }
-    
-    
+
+    public static void main(String[] args) {
+        //      find_and_run_application("..", "statistic.exe");
+        try {
+            run_application_with_associated_application(new File("action.cmd"));
+        } catch (IOException ex) {
+            Logger.getLogger(MyProcess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * Can be very useful
@@ -211,13 +211,11 @@ public class MyProcess {
         }
         try {
             Process p = Runtime.getRuntime().exec(path);
-            
+
         } catch (IOException ex) {
             System.out.println("" + ex);
         }
     }
-    
-    
 
     /**
      *
@@ -360,9 +358,6 @@ public class MyProcess {
         ProcessBuilder builder = new ProcessBuilder(commands);
         builder.start();
     }
-    
-    
-    
 
     /**
      * Launches the ping
@@ -396,8 +391,8 @@ public class MyProcess {
         int returnVal = proc.waitFor();
         return returnVal == 0;
     }
-    
-     private static boolean shut_down_remote_pc__with_catching_output(String host) throws IOException {
+
+    private static boolean shut_down_remote_pc__with_catching_output(String host) throws IOException {
         Process p = Runtime.getRuntime().exec("shutdown -s -m \\\\" + host);
         BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
         String line;
@@ -409,8 +404,6 @@ public class MyProcess {
         }
         return true;
     }
-
-   
 
     public static void restart() throws IOException {
         Runtime runtime = Runtime.getRuntime();
@@ -588,7 +581,6 @@ public class MyProcess {
             Process process = Runtime.getRuntime().exec(cmd);
             stdout = process.getInputStream();
 
-
             // clean up if any output in stdout
             BufferedReader brCleanUp = new BufferedReader(new InputStreamReader(stdout));
             while ((line = brCleanUp.readLine()) != null) {
@@ -652,7 +644,6 @@ public class MyProcess {
         InputStream stderr;
         InputStream stdout;
 
-
         Process process = run_application_exe_for_output_catching(appName, path, commands);
 
         // launch EXE and grab stdin/stdout and stderr
@@ -676,16 +667,16 @@ public class MyProcess {
         stdin.close();
 
         // clean up if any output in stdout
-        BufferedReader brCleanUp =
-                new BufferedReader(new InputStreamReader(stdout));
+        BufferedReader brCleanUp
+                = new BufferedReader(new InputStreamReader(stdout));
         while ((line = brCleanUp.readLine()) != null) {
             textarea.append("" + line + "\n");
         }
         brCleanUp.close();
 
         // clean up if any output in stderr
-        brCleanUp =
-                new BufferedReader(new InputStreamReader(stderr));
+        brCleanUp
+                = new BufferedReader(new InputStreamReader(stderr));
         while ((line = brCleanUp.readLine()) != null) {
             textarea.append("" + line);
             System.out.println("[Stderr] " + line);
@@ -753,16 +744,16 @@ public class MyProcess {
         stdin.close();
 
         // clean up if any output in stdout
-        BufferedReader brCleanUp =
-                new BufferedReader(new InputStreamReader(stdout));
+        BufferedReader brCleanUp
+                = new BufferedReader(new InputStreamReader(stdout));
         while ((line = brCleanUp.readLine()) != null) {
             System.out.println("[Stdout] " + line);
         }
         brCleanUp.close();
 
         // clean up if any output in stderr
-        brCleanUp =
-                new BufferedReader(new InputStreamReader(stderr));
+        brCleanUp
+                = new BufferedReader(new InputStreamReader(stderr));
         while ((line = brCleanUp.readLine()) != null) {
             System.out.println("[Stderr] " + line);
         }
@@ -810,10 +801,9 @@ public class MyProcess {
         stdin.close();
 
         // clean up if any output in stdout
-        BufferedReader brCleanUp =
-                new BufferedReader(new InputStreamReader(stdout));
+        BufferedReader brCleanUp
+                = new BufferedReader(new InputStreamReader(stdout));
         while ((line = brCleanUp.readLine()) != null) {
-
 
             if (checkStringContains(line.toLowerCase(), expressionToMatch.toLowerCase())) {
                 nrSessions++;
@@ -823,8 +813,8 @@ public class MyProcess {
         brCleanUp.close();
 
         // clean up if any output in stderr
-        brCleanUp =
-                new BufferedReader(new InputStreamReader(stderr));
+        brCleanUp
+                = new BufferedReader(new InputStreamReader(stderr));
         while ((line = brCleanUp.readLine()) != null) {
 
             System.out.println("[Stderr] " + line);

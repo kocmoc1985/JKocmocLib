@@ -22,10 +22,10 @@ public class MyString {
 
     private static Charset charset_g = Charset.forName("ASCII");
 
-    public static String enloseInMySqlSlashes(String str){
+    public static String enloseInMySqlSlashes(String str) {
         return "`" + str + "`";
     }
-    
+
     public static String cubicMeter() {
         return "kg/m&#179";
     }
@@ -48,7 +48,19 @@ public class MyString {
     }
 
     public static void main(String[] args) {
+        extractSignalNameFromTag_WH("ns=2;s=_System.Data_Source.Siemens.ML6_M.Status");
+    }
 
+    /**
+     *
+     * @param fullTag - ns=2;s=_System.Data_Source.Siemens.ML6_M.Status
+     * @return
+     */
+    public static String extractSignalNameFromTag_WH(String fullTag) {
+        String arr[] = fullTag.split("\\.");
+        String signal = arr[arr.length - 1];
+//        System.out.println("Signal: " + signal);
+        return signal;
     }
 
     public static boolean getIfStringContains(String toBeSearched, String toFind) {
@@ -161,8 +173,8 @@ public class MyString {
         String x = String.format("select * from %s where %s = %s", "batches", "id", "10");
         System.out.println("" + x);
     }
-    
-     public String stringFormat(String company, String ipLocal, String userName,
+
+    public String stringFormat(String company, String ipLocal, String userName,
             String os, String ver, String launchedApp) {
         String format = "%1$-15s %2$-15s %3$-20s %4$-20s %5$-15s %6$-30s";
         String arr[] = {company, ipLocal, userName, os, ver, launchedApp};

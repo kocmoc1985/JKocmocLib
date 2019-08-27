@@ -42,6 +42,27 @@ public class MyTCP {
             return true;
         }
     }
+    
+    /**
+     * Find this in ServerAdmin project
+     * ping portPing pingPort port_ping
+     * @return 
+     */
+    public static boolean pingPort(String host, String port) {
+        try {
+            //
+            //
+            if (host.isEmpty() == false && port.isEmpty() == false) {
+                InetAddress adress = InetAddress.getByName(host);
+                Socket sockett = new Socket(adress, Integer.parseInt(port));
+            }
+            //
+        } catch (IOException ex) {
+            Logger.getLogger(MyTCP.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
+    }
 
     public static boolean portOpen(int port) {
         try {
