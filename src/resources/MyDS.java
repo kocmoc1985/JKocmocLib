@@ -25,8 +25,25 @@ import java.util.logging.Logger;
  * @author Administrator
  */
 public class MyDS {
-    
-    public  static void constraintBufferSize(LinkedList<Properties> buffer, int maxSize) {
+
+    public static void main(String[] args) {
+
+    }
+
+    public static int counteNrOfSameElementsInList(ArrayList<String> list, String theEntryToCount) {
+        return Collections.frequency(list, theEntryToCount);
+    }
+
+    public static void counteNrOfSameElementsInList_example() {
+        ArrayList<String> animals = new ArrayList<String>();
+        animals.add("bat");
+        animals.add("owl");
+        animals.add("bat");
+        animals.add("bat");
+        System.out.println("Freq of bat: " + Collections.frequency(animals, "bat"));
+    }
+
+    public static void constraintBufferSize(LinkedList<Properties> buffer, int maxSize) {
         if (buffer != null) {
             if (buffer.size() >= maxSize) {
                 while (buffer.size() >= maxSize) {
@@ -306,12 +323,8 @@ public class MyDS {
         return list;
     }
 
-    public static void main(String[] args) {
-        test();
-    }
-
     public static void test() {
-        LinkedList<Integer>linkedList = new LinkedList<Integer>();
+        LinkedList<Integer> linkedList = new LinkedList<Integer>();
         linkedList.add(1);
         linkedList.add(2);
         linkedList.add(3);
