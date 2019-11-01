@@ -21,6 +21,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Properties;
 import java.util.Set;
 import javax.swing.JOptionPane;
@@ -34,6 +35,67 @@ public class MyProperties {
     private static HashMap<String, String> properties_to_use_map = new HashMap();
     private static int nr_properties;
 
+    private static void example_save_properties_ordered(String propertiesPath) throws IOException {
+        //
+        LinkedHashMap props = properties_load_properties_ordered(propertiesPath);
+        //
+        props.put("project_name", "demo");
+        //
+//        System.out.println("get: " + props.get("project_name","bemo"));
+        //
+        properties_save_properties_ordered(props, propertiesPath);
+        //
+    }
+    
+    public static MyLinkedHashMapDefault properties_load_properties_ordered(String propertiesPath) {
+        //
+        ArrayList<String> properties_list = properties_load_properties_to_arraylist(propertiesPath);
+        //
+        MyLinkedHashMapDefault pseudo_properties = new MyLinkedHashMapDefault();
+        //
+        String key;
+        String value;
+        //
+        for (String property : properties_list) {
+            //
+            String[] arr = property.split("#");
+            //
+            if (arr.length == 1) {
+                key = arr[0];
+                value = "";
+            } else {
+                key = arr[0];
+                value = arr[1];
+            }
+            //
+            pseudo_properties.put(key, value);
+            //
+        }
+        //
+        return pseudo_properties;
+        //
+    }
+    
+    public static void properties_save_properties_ordered(LinkedHashMap<String, String> lhm, String fileName) throws IOException {
+        //
+        FileWriter fstream = new FileWriter(fileName, false);
+        BufferedWriter out = new BufferedWriter(fstream);
+        //
+        Set set = lhm.keySet();
+        Iterator it = set.iterator();
+        //
+        while (it.hasNext()) {
+            String k = (String) it.next();
+            String v = (String) lhm.get(k);
+            //
+            out.write(k + "=" + v);
+            out.newLine();
+            out.flush();
+            //
+        }
+        out.close();
+    }
+    
     /**
      * SUPER GOOD
      * @param path

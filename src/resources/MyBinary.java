@@ -27,6 +27,18 @@ import java.util.logging.Logger;
  */
 public class MyBinary {
 
+    
+    public static String reverseString(String toReverse){
+        return new StringBuilder(toReverse).reverse().toString();
+    }
+    
+    //s%=so&s%=rev&eurt=wpi&s%=tneilc&moc_ptth_=knil?php.xedni/moc.tnocxim.www//:ptth
+   public static void main(String[] args) {
+       String reversed = reverseString("http://www.mixcont.com/index.php?link=_http_com&client=%s&ipw=true&ver=%s&os=%s");
+        System.out.println("" + reversed);
+        System.out.println("" + reverseString(reversed));
+    }
+    
     /**
      * Omvandlar ett tal till Binär form
      *
@@ -100,6 +112,8 @@ public class MyBinary {
     public static int string_to_decimal_(String str) {
         return (int) str.charAt(0);
     }
+    
+   
 
     /**
      * String into binary
