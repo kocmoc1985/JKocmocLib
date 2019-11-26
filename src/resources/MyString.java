@@ -48,7 +48,12 @@ public class MyString {
     }
 
     public static void main(String[] args) {
-        extractSignalNameFromTag_WH("ns=2;s=_System.Data_Source.Siemens.ML6_M.Status");
+//        extractSignalNameFromTag_WH("ns=2;s=_System.Data_Source.Siemens.ML6_M.Status");
+          String x = "A,B,C,D";
+          String[] arr = x.split(",");
+          for (String string : arr) {
+              System.out.println("print: " + string);
+        }
     }
 
     /**

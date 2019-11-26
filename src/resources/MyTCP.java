@@ -4,6 +4,7 @@
  */
 package resources;
 
+import java.awt.TextArea;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -146,6 +147,37 @@ public class MyTCP {
     public static String getLocalHostIp() throws UnknownHostException {
         return InetAddress.getLocalHost().getHostAddress();
     }
+    
+    public static String getMacAddrHost(String host) throws IOException, InterruptedException {
+        //
+        boolean ok = ping3(host);
+        //
+        if (ok) {
+            InetAddress address = InetAddress.getByName(host);
+            String ip = address.getHostAddress();
+            return getMacAddrHost_run_with_output("arp -a " + ip);
+        }
+        //
+        return null;
+    }
+    
+    private static String getMacAddrHost_run_with_output(String param) throws IOException {
+        Process p = Runtime.getRuntime().exec(param);
+        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        String line;
+        while ((line = input.readLine()) != null) {
+            if (!line.trim().equals("")) {
+                // keep only the process name
+                line = line.substring(1);
+                String mac = getMacAddrHost_extractmac(line);
+                if (mac.isEmpty() == false) {
+                    return mac;
+                }
+            }
+
+        }
+        return null;
+    }
 
     public static void getMacAddress() {
         InetAddress ip;
@@ -228,23 +260,7 @@ public class MyTCP {
         return returnVal == 0;
     }
 
-    private static String getMacAddrHost_run_with_output(String param) throws IOException {
-        Process p = Runtime.getRuntime().exec(param);
-        BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        String line;
-        while ((line = input.readLine()) != null) {
-            if (!line.trim().equals("")) {
-                // keep only the process name
-                line = line.substring(1);
-                String mac = getMacAddrHost_extractmac(line);
-                if (mac.isEmpty() == false) {
-                    return mac;
-                }
-            }
-
-        }
-        return null;
-    }
+    
 
     private static String getMacAddrHost_extractmac(String str) {
         String arr[] = str.split("   ");
