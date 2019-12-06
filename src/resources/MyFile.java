@@ -299,19 +299,13 @@ public class MyFile {
         return Math.round(rst_unrounded);
     }
 
-    /**
-     *
-     * @param file_path
-     */
+    
     public static double get_file_size_bytes(String file_path) {
         File f = new File(file_path);
         return f.length();
     }
 
-    /**
-     *
-     * @param file_path
-     */
+   
     public static double get_file_size_mb(String file_path) {
         File f = new File(file_path);
         double rst_unrounded = (double) f.length() / 1048576;
