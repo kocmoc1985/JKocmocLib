@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -27,6 +28,20 @@ import java.util.logging.Logger;
  */
 public class MyFile {
 
+    /**
+     * Super important methode
+     */
+    public static void splitStringWithBackSlash(){
+        //Splitting String with "\"
+        //
+        File f = new File("xml/testDir/testDir2/dd.xml"); //xml/testDir/testDir2/dd.xml
+        String pattern = Pattern.quote(System.getProperty("file.separator"));
+        String[] arr = f.getPath().split(pattern);
+        for (String string : arr) {
+            System.out.println(string);
+        }
+    }
+    
     public static String[] splitStringWithPoint(String strToSplit) {
         return strToSplit.split("\\.");
     }
@@ -61,6 +76,7 @@ public class MyFile {
     public static void main(String[] args) {
 //        replaceSlashesExample();
         get_path_examples();
+        splitStringWithBackSlash();
 //        find_file("c:/", "AbsoluteLayout.jar");
 //        System.out.println("file = " + searched_file);
     }

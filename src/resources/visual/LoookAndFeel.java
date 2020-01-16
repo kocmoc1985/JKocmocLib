@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import javax.swing.plaf.DimensionUIResource;
 
 /**
  *
@@ -28,6 +29,13 @@ public class LoookAndFeel extends JFrame {
 
     public static void main(String[] args) {
         LoookAndFeel laf = new LoookAndFeel();
+    }
+    
+    /**
+     * TESTED [2019-12-23]
+     */
+    public static void jtableNimbusLookAndFeelVerticalScrollBarThumbFix(){
+        UIManager.put("ScrollBar.minimumThumbSize", new DimensionUIResource(35, 35));
     }
 
     /**
