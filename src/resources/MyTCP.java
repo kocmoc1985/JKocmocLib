@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
@@ -34,6 +36,75 @@ public class MyTCP {
 
     private static Socket socket;
 
+    
+    public static boolean isLocalHost(String ip) throws UnknownHostException {
+        //
+        InetAddress address = InetAddress.getByName(ip);
+        if (address.isAnyLocalAddress() || address.isLoopbackAddress()) {
+            return true;
+        }
+        //
+        // Check if the address is defined on any interface
+        try {
+            return NetworkInterface.getByInetAddress(address) != null;
+        } catch (SocketException e) {
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            System.out.println("" + isLocalHost("hpwork"));
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(MyTCP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Translates host name like "acerblue.lan" to "192.168.1.189" If you send a
+     * host name which is already translated it will return the same: so
+     * "10.87.0.2" will be returned as is.
+     *
+     * @param hostName
+     * @return
+     */
+    public static String translateHostNameToIp(String hostName) {
+        //
+        if (isIpAdress(hostName)) {
+            return hostName;
+        }
+        //
+        try {
+            InetAddress address = InetAddress.getByName(hostName);
+            String ip = address.getHostAddress();
+            if (ip != null) {
+                if (isIpAdress(ip)) {
+                    return ip;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(MyTCP.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public static boolean isIpAdress(String strToTest) {
+        String IPADDRESS_PATTERN
+                = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+
+        Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
+        Matcher matcher = pattern.matcher(strToTest);
+        if (matcher.matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static boolean portOccupied(int port) {
         try {
             ServerSocket ss = new ServerSocket(port);
@@ -43,11 +114,11 @@ public class MyTCP {
             return true;
         }
     }
-    
+
     /**
-     * Find this in ServerAdmin project
-     * ping portPing pingPort port_ping
-     * @return 
+     * Find this in ServerAdmin project ping portPing pingPort port_ping
+     *
+     * @return
      */
     public static boolean pingPort(String host, String port) {
         try {
@@ -147,20 +218,7 @@ public class MyTCP {
     public static String getLocalHostIp() throws UnknownHostException {
         return InetAddress.getLocalHost().getHostAddress();
     }
-    
-    public static String getMacAddrHost(String host) throws IOException, InterruptedException {
-        //
-        boolean ok = ping3(host);
-        //
-        if (ok) {
-            InetAddress address = InetAddress.getByName(host);
-            String ip = address.getHostAddress();
-            return getMacAddrHost_run_with_output("arp -a " + ip);
-        }
-        //
-        return null;
-    }
-    
+
     private static String getMacAddrHost_run_with_output(String param) throws IOException {
         Process p = Runtime.getRuntime().exec(param);
         BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -260,8 +318,6 @@ public class MyTCP {
         return returnVal == 0;
     }
 
-    
-
     private static String getMacAddrHost_extractmac(String str) {
         String arr[] = str.split("   ");
         for (String string : arr) {
@@ -274,10 +330,11 @@ public class MyTCP {
 
     /**
      * THis is the main one
+     *
      * @param host
      * @return
      * @throws IOException
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     public static String getMacAddrHost(String host) throws IOException, InterruptedException {
         //
@@ -291,16 +348,6 @@ public class MyTCP {
         //
         return null;
         //
-    }
-
-    public static void main(String[] args) {
-        try {
-            System.out.println("" + getMacAddrHost("MIXCONT-VS2008"));
-        } catch (IOException ex) {
-            Logger.getLogger(MyTCP.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MyTCP.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     /**
