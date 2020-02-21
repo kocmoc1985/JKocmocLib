@@ -50,8 +50,8 @@ public class MyPasswordEncryptionC {
     }
 
     public static void main(String[] args) throws IOException {
-        //A. Upon registration, the user sends her password to the server. The server
-        // generates a random salt, and stores the salted hash and the salt.
+// =============================================================================
+// SErver side operations below
 //        byte[] salt = getNextSalt();
 //        //
 //        try {
@@ -69,8 +69,8 @@ public class MyPasswordEncryptionC {
 //            Logger.getLogger(MyPasswordEncryptionB.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         //
-        //
-        //
+        //=================================================================================
+        //Validating pass below
         //
 //        char[] pass_provided_by_client = "mcremote".toCharArray();
 //        //
@@ -91,7 +91,7 @@ public class MyPasswordEncryptionC {
 //        checkForPasswordFile("properties/pwp_s", true, true); // Server
         //
         //Check!! 
-        char[]loaded_pass = checkForPasswordFile("properties/pwp_c", true, false); // Client
+        char[] loaded_pass = checkForPasswordFile("properties/pwp_c", true, false); // Client
         byte[] loaded_salt = filetoByteArray("properties/pwp_salt");
         byte[] loaded_salted_pass = filetoByteArray("properties/pwp_s");
         System.out.println("" + isExpectedPassword(loaded_pass, loaded_salt, loaded_salted_pass));
@@ -99,6 +99,7 @@ public class MyPasswordEncryptionC {
 
     //==========================================================================
     /**
+     * Use by both client and server
      *
      * @param pathAndFileName
      * @param hidePassword
@@ -242,6 +243,13 @@ public class MyPasswordEncryptionC {
         } finally {
             spec.clearPassword();
         }
+    }
+    
+    
+    public static boolean validatePassword(char[]passWordToVerify,String pathToSalt, String pathToSaltedPass) throws IOException{
+        byte[] loaded_salt = filetoByteArray(pathToSalt);
+        byte[] loaded_salted_pass = filetoByteArray(pathToSaltedPass);
+        return isExpectedPassword(passWordToVerify, loaded_salt, loaded_salted_pass);
     }
 
     /**
