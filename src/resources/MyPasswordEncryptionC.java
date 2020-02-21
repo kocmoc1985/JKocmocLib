@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -47,41 +49,52 @@ public class MyPasswordEncryptionC {
     private MyPasswordEncryptionC() {
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //A. Upon registration, the user sends her password to the server. The server
         // generates a random salt, and stores the salted hash and the salt.
-        byte[] salt = getNextSalt();
-        //
-        try {
-            byteArrayToFile("salt/salt", salt);
-        } catch (IOException ex) {
-            Logger.getLogger(MyPasswordEncryptionB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //
-        char[] pass_ = "mcremote".toCharArray();
-        byte[] pass_salted = hash(pass_, salt);
-        //
-        try {
-            byteArrayToFile("pass_salted/pass_salted", pass_salted);
-        } catch (IOException ex) {
-            Logger.getLogger(MyPasswordEncryptionB.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //
-        //
+//        byte[] salt = getNextSalt();
+//        //
+//        try {
+//            byteArrayToFile("salt/salt", salt);
+//        } catch (IOException ex) {
+//            Logger.getLogger(MyPasswordEncryptionB.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        //
+//        char[] pass_ = "mcremote".toCharArray();
+//        byte[] pass_salted = hash(pass_, salt);
+//        //
+//        try {
+//            byteArrayToFile("pass_salted/pass_salted", pass_salted);
+//        } catch (IOException ex) {
+//            Logger.getLogger(MyPasswordEncryptionB.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         //
         //
-        char[] pass_provided_by_client = "mcremote".toCharArray();
-        //
-        try {
-            byte[] loaded_salted_pass = filetoByteArray("pass_salted/pass_salted");
-            byte[] loaded_salt = filetoByteArray("salt/salt");
-            System.out.println("ALLOWED:" + isExpectedPassword(pass_provided_by_client, loaded_salt, loaded_salted_pass));
-        } catch (Exception ex) {
-            Logger.getLogger(MyPasswordEncryptionC.class.getName()).log(Level.SEVERE, null, ex);
-        }
         //
         //
-
+//        char[] pass_provided_by_client = "mcremote".toCharArray();
+//        //
+//        try {
+//            byte[] loaded_salted_pass = filetoByteArray("pass_salted/pass_salted");
+//            byte[] loaded_salt = filetoByteArray("salt/salt");
+//            System.out.println("ALLOWED:" + isExpectedPassword(pass_provided_by_client, loaded_salt, loaded_salted_pass));
+//        } catch (Exception ex) {
+//            Logger.getLogger(MyPasswordEncryptionC.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        //
+        //======================================================================
+        //Below is the RDPComm configurataion tested
+        //
+//        char[]arr = checkForPasswordFile("properties/pwp_c", true, false); // Client
+//        System.out.println("" + new String(arr));
+        //
+//        checkForPasswordFile("properties/pwp_s", true, true); // Server
+        //
+        //Check!! 
+        char[]loaded_pass = checkForPasswordFile("properties/pwp_c", true, false); // Client
+        byte[] loaded_salt = filetoByteArray("properties/pwp_salt");
+        byte[] loaded_salted_pass = filetoByteArray("properties/pwp_s");
+        System.out.println("" + isExpectedPassword(loaded_pass, loaded_salt, loaded_salted_pass));
     }
 
     //==========================================================================
@@ -90,9 +103,9 @@ public class MyPasswordEncryptionC {
      * @param pathAndFileName
      * @param hidePassword
      * @param server - true = server ; false = client
-     * @return
+     * @return - is needed for the CLIENT side only
      */
-    public static byte[] checkForPasswordFile(String pathAndFileName, boolean hidePassword, boolean server) {
+    public static char[] checkForPasswordFile(String pathAndFileName, boolean hidePassword, boolean server) {
         //
         if (file_exists(new File(pathAndFileName))) {
             //
@@ -105,18 +118,42 @@ public class MyPasswordEncryptionC {
             }
             //
             if (pass != null && pass.length != 0) {
-                return pass;
-            } else {
-                return setRDPCommPassword(pathAndFileName, hidePassword);
+                //
+                if (server == false) { // Client
+                    try {
+                        char[] pass_arr = (char[]) fileToObject(pathAndFileName);
+                        return pass_arr;
+                    } catch (Exception ex) {
+                        Logger.getLogger(MyPasswordEncryptionC.class.getName()).log(Level.SEVERE, null, ex);
+                        return null;
+                    }
+                } else {
+                    return null;
+                }
+                //
+            } else { // pass = null or empty actions
+                //
+                if (server) {
+                    setRDPCommPassword_server("properties/pwp_s", "properties/pwp_salt", hidePassword);
+                    return null;
+                } else {//Client
+                    return setRDPCommPassword_client("properties/pwp_c", hidePassword);
+                }
+                //
             }
             //
-        } else {
-            return setRDPCommPassword(pathAndFileName, hidePassword);
+        } else { // Fille missing actions
+            if (server) {
+                setRDPCommPassword_server("properties/pwp_s", "properties/pwp_salt", hidePassword);
+                return null;
+            } else { // Client
+                return setRDPCommPassword_client("properties/pwp_c", hidePassword);
+            }
         }
         //
     }
 
-    private static void setRDPCommPassword_server(String pathAndFileNamePassSalted,String pathAndFileNameSalt, boolean hidePassword) {
+    private static void setRDPCommPassword_server(String pathAndFileNamePassSalted, String pathAndFileNameSalt, boolean hidePassword) {
         //
         showInformationMessage("The password is not set, please set the password");
         JPasswordField jpf = chooseFromPasswordField("Enter password", hidePassword);
@@ -149,7 +186,7 @@ public class MyPasswordEncryptionC {
         //
     }
 
-    private static byte[] setRDPCommPassword_client(String pathAndFileName, boolean hidePassword) {
+    private static char[] setRDPCommPassword_client(String pathAndFileName, boolean hidePassword) {
         //
         showInformationMessage("The password is not set, please set the password");
         JPasswordField jpf = chooseFromPasswordField("Enter password", hidePassword);
@@ -157,24 +194,11 @@ public class MyPasswordEncryptionC {
         //
         if (pass.isEmpty() == false) {
             //
-            byte[] salt = getNextSalt();
+            char[] pass_ = pass.toCharArray();
             //
-            try {
-                byteArrayToFile("salt/salt", salt);
-            } catch (IOException ex) {
-                Logger.getLogger(MyPasswordEncryptionB.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            objectToFile(pathAndFileName, pass_);
             //
-            char[] pass_ = "mcremote".toCharArray();
-            byte[] pass_salted = hash(pass_, salt);
-            //
-            try {
-                byteArrayToFile("pass_salted/pass_salted", pass_salted);
-            } catch (IOException ex) {
-                Logger.getLogger(MyPasswordEncryptionB.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            //
-            return sha256_byte(pass);
+            return pass_;
             //
         } else {
             showInformationMessage("Password provided is empty");
@@ -208,6 +232,7 @@ public class MyPasswordEncryptionC {
      */
     public static byte[] hash(char[] password, byte[] salt) {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
+
         Arrays.fill(password, Character.MIN_VALUE);
         try {
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
@@ -269,6 +294,24 @@ public class MyPasswordEncryptionC {
     }
 
     //==========================================================================
+    private static Object fileToObject(String path) throws IOException, ClassNotFoundException {
+        FileInputStream fas = new FileInputStream(path);
+        ObjectInputStream ois = new ObjectInputStream(fas);
+        Object obj = ois.readObject();
+        return obj;
+    }
+
+    private static void objectToFile(String path, Object obj) {
+        try {
+            FileOutputStream fos = new FileOutputStream(path);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(obj);
+            oos.close();
+        } catch (Exception ex) {
+            Logger.getLogger(MyPasswordEncryptionC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private static void byteArrayToFile(String path, byte[] arr) throws FileNotFoundException, IOException {
         File f2 = new File(path);
         OutputStream out;
