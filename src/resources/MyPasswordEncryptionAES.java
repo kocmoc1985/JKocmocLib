@@ -27,8 +27,9 @@ public class MyPasswordEncryptionAES {
     private static SecretKeySpec secretKeySpec;
     private static byte[] key;
     //
-    public static String MC_REMOTE__CLIENT_ID__SK = "qazedcxswrfvbgtyhn/qazedcxswrfvbgtyhn";
+    public static String MC_REMOTE__CLIENT_ID__SK__32__BIT = "5kgkD9PEUO7VAtmf0SCcHaC6IxKlqeJuMqDfdD5iyCk=";//qazedcxswrfvbgtyhn/qazedcxswrfvbgtyhn
     public static String MC_REMOTE__CLIENT_CERT__SK;
+    public static String MC_REMOTE__FTP__16__BIT= "JKqNR+NSW4ugR1rDTiGXvQ==";
     //
 
     public static void setKey(String myKey) {
@@ -73,23 +74,27 @@ public class MyPasswordEncryptionAES {
     private static final Random RANDOM = new SecureRandom();
     
     public static String randomSecretKey() {
-        byte[] salt = new byte[16];
+        byte[] salt = new byte[16];//16
         RANDOM.nextBytes(salt);
         return Base64.getEncoder().encodeToString(salt);
     }
 
     public static String mcRemoteClientIdEncryption(String clientId){
-        return encrypt(clientId, MC_REMOTE__CLIENT_ID__SK);
+        return encrypt(clientId, MC_REMOTE__CLIENT_ID__SK__32__BIT);
     }
     
     public static String mcRemoteClientCertPwEncryption(String certPw){
         return encrypt(certPw, MC_REMOTE__CLIENT_CERT__SK);
     }
     
+    public static String mcRemoteClientFTPEncryption(String certPw){
+        return encrypt(certPw, MC_REMOTE__FTP__16__BIT);
+    }
+    
     /**
-     * Client id 901 (mixcont): x81rz17fTdPUOGUsTtwIKw==
-     * Client id 10001(mixcont): mNRdeMGw8lnTOc9urpIvaQ==
-     * Client id 10102 (lina): 6ng8kYyZx9KdK7XK4yARkg==
+     * Client id 901 (mixcont): boAub/3qEhun2jS3f3Zytw==
+     * Client id 10001(mixcont): KhB+90KIw6ta79iz4HkZtA==
+     * Client id 10102 (lina): kwPYVSck+YmDEvzZIT8WsA==
      *
      * @param args
      */
@@ -107,7 +112,12 @@ public class MyPasswordEncryptionAES {
         //
         //
 //        System.out.println("" + mcRemoteClientIdEncryption("901"));
+//        System.out.println("" + mcRemoteClientIdEncryption("10001"));
+//        System.out.println("" + mcRemoteClientIdEncryption("10102"));
 //
-        System.out.println("" + randomSecretKey());
+//    FOR FTP: [vxsAZ1RKBqCTea4Bilr7hg==][JKqNR+NSW4ugR1rDTiGXvQ==] -> first pass, second passkey
+//    For obsfuscation reason and to keep it 44char long skip sending "==" append them afterwards
+        System.out.println("" + mcRemoteClientFTPEncryption("MCpc1Service"));
+//        System.out.println("" + randomSecretKey());
     }
 }
