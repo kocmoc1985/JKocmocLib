@@ -151,6 +151,10 @@ public class MySort {
         array[i] = array[j];
         array[j] = temp;
     }
+    
+    public static void swap(){
+        
+    }
 
     /**
      * Object Array sortation with bubbleSort
