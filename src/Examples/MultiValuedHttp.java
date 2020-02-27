@@ -23,6 +23,7 @@ public class MultiValuedHttp {
         DoubleVal doubleVal = new DoubleVal(val_A, val_B);
         System.out.println("" + doubleVal);
     }
+    
 
     public static  class DoubleVal {
 
