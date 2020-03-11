@@ -114,21 +114,16 @@ public class MyPasswordEncryptionAES {
 //        System.out.println(decryptedString);
         //
         //
-        //
-        //
-        //
-//        System.out.println("" + mcRemoteClientIdEncryption("901"));
-//        System.out.println("" + mcRemoteClientIdEncryption("10001"));
-//        System.out.println("" + mcRemoteClientIdEncryption("10102"));
-        //
+        // OBS! DON'T ERASE THE FTP EXMAPLE BELOW!!!!!
         // FOR FTP: [vxsAZ1RKBqCTea4Bilr7hg==][JKqNR+NSW4ugR1rDTiGXvQ==] -> first pass, second passkey
         // For obsfuscation reason and to keep it 44char long skip sending "==" append them afterwards
         // System.out.println("" + mcRemoteClientFTPEncryption("MCpc1Service"));
         //
-        //
 //        System.out.println("" + randomSecretKey());
         //
         //
-        System.out.println("" + mcRemoteClientCertPwEncryption("kocmoc"));
+        // BELOW THE COMMON OPERATIONS FOR NEW MCREMOTE CLIENT CREATION[2020-03-11]
+        System.out.println("" + mcRemoteClientCertPwEncryption("amnbv03")); // SSL CERT PASS
+        System.out.println("" + mcRemoteClientIdEncryption("10203")); // CLIENT ID ENCRYPTION
     }
 }
