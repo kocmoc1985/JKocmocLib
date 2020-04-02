@@ -14,7 +14,6 @@ import java.util.Base64;
 import java.util.Random;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
-import sun.print.Win32PrintService;
 
 /**
  * Java AES 256 Encryption Decryption Example Encryption with possibility do
@@ -22,7 +21,7 @@ import sun.print.Win32PrintService;
  *
  * @author KOCMOC
  */
-public class MyPasswordEncryptionAES {
+public class MyPwdEncryptionAES_dont_use_MCREMOTE {
 
     private static SecretKeySpec secretKeySpec;
     private static byte[] key;
@@ -73,8 +72,14 @@ public class MyPasswordEncryptionAES {
 
     private static final Random RANDOM = new SecureRandom();
 
-    public static String randomSecretKey() {
+    public static String randomSecretKey32() {
         byte[] salt = new byte[32];//16
+        RANDOM.nextBytes(salt);
+        return Base64.getEncoder().encodeToString(salt);
+    }
+
+    public static String randomSecretKey8() {
+        byte[] salt = new byte[8];
         RANDOM.nextBytes(salt);
         return Base64.getEncoder().encodeToString(salt);
     }
@@ -119,11 +124,11 @@ public class MyPasswordEncryptionAES {
         // For obsfuscation reason and to keep it 44char long skip sending "==" append them afterwards
         // System.out.println("" + mcRemoteClientFTPEncryption("MCpc1Service"));
         //
-//        System.out.println("" + randomSecretKey());
+        System.out.println("" + randomSecretKey8());
         //
         //
         // BELOW THE COMMON OPERATIONS FOR NEW MCREMOTE CLIENT CREATION[2020-03-11]
-        System.out.println("" + mcRemoteClientCertPwEncryption("amnbv03")); // SSL CERT PASS
-        System.out.println("" + mcRemoteClientIdEncryption("10203")); // CLIENT ID ENCRYPTION
+//        System.out.println("" + mcRemoteClientCertPwEncryption("kocmoc")); // SSL CERT PASS
+//        System.out.println("" + mcRemoteClientIdEncryption("10102")); // CLIENT ID ENCRYPTION
     }
 }
