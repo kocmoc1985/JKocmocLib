@@ -215,6 +215,10 @@ public class MyProperties {
         out.close();
     }
 
+    public static void main(String[] args) {
+        Properties p = properties_load_properties("test.properties", true);
+    }
+    
     /**
      *
      * @param path_andOr_fileName "onoff.properties" or
