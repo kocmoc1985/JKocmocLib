@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -36,7 +37,6 @@ public class MyTCP {
 
     private static Socket socket;
 
-    
     public static boolean isLocalHost(String ip) throws UnknownHostException {
         //
         InetAddress address = InetAddress.getByName(ip);
@@ -49,14 +49,6 @@ public class MyTCP {
             return NetworkInterface.getByInetAddress(address) != null;
         } catch (SocketException e) {
             return false;
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            System.out.println("" + isLocalHost("hpwork"));
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(MyTCP.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -301,8 +293,12 @@ public class MyTCP {
     }
 
     /**
-     * The best
-     *
+     * Was the favorite during long time
+     * 
+     * Good but according to my experience only on WinXp. On Win7 and later
+     * it almost always returns true for the host's which are offline.
+     * This because even if the result is "destination host unreachable" it returns true.[2020-04-23]
+     * @deprecated 
      * @param host
      * @return
      * @throws IOException
@@ -316,6 +312,78 @@ public class MyTCP {
 
         int returnVal = proc.waitFor();
         return returnVal == 0;
+    }
+
+    public static void main(String[] args) {
+        try {
+            //        try {
+//            System.out.println("" + isLocalHost("hpwork"));
+//        } catch (UnknownHostException ex) {
+//            Logger.getLogger(MyTCP.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+            System.out.println("" + ping4("192.168.1.1"));
+        } catch (IOException ex) {
+            Logger.getLogger(MyTCP.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * [2020-04-23]
+     * THE BEST ONE
+     * Works with WinXp as well as with Win7 and later
+     * @param host
+     * @return
+     * @throws IOException 
+     */
+    private static boolean ping4(String host) throws IOException {
+
+        String[] commands2 = {"ping", "-n", "1", host};
+
+        String line;
+        OutputStream stdin;
+        InputStream stderr;
+        InputStream stdout;
+
+        // launch EXE and grab stdin/stdout and stderr
+        Process process = Runtime.getRuntime().exec(commands2);
+        stdin = process.getOutputStream();
+        stderr = process.getErrorStream();
+        stdout = process.getInputStream();
+
+        // "write" the parms into stdin
+        line = "param1" + "\n";
+        stdin.write(line.getBytes());
+        stdin.flush();
+
+        line = "param2" + "\n";
+        stdin.write(line.getBytes());
+        stdin.flush();
+
+        line = "param3" + "\n";
+        stdin.write(line.getBytes());
+        stdin.flush();
+
+        stdin.close();
+
+        // clean up if any output in stdout
+        BufferedReader brCleanUp
+                = new BufferedReader(new InputStreamReader(stdout));
+        while ((line = brCleanUp.readLine()) != null) {
+            System.out.println("[Stdout] " + line);
+             if (line.contains("TTL")) {
+                return true;
+            }
+        }
+        brCleanUp.close();
+
+        // clean up if any output in stderr
+        brCleanUp
+                = new BufferedReader(new InputStreamReader(stderr));
+        while ((line = brCleanUp.readLine()) != null) {
+           System.out.println("[Stderr] " + line);
+        }
+        brCleanUp.close();
+        return false;
     }
 
     private static String getMacAddrHost_extractmac(String str) {

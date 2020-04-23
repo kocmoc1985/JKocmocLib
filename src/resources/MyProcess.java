@@ -153,14 +153,7 @@ public class MyProcess {
         Desktop.getDesktop().open(file);
     }
 
-    public static void main(String[] args) {
-        //      find_and_run_application("..", "statistic.exe");
-        try {
-            run_application_with_associated_application(new File("action.cmd"));
-        } catch (IOException ex) {
-            Logger.getLogger(MyProcess.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 
     /**
      * Can be very useful
@@ -705,6 +698,14 @@ public class MyProcess {
         //
         return builder.start();
     }
+    
+    public static void main(String[] args) {
+        try {
+            grab_output_from_a_non_java_prog_for_testing();
+        } catch (IOException ex) {
+            Logger.getLogger(MyProcess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     //*********************************
     /**
@@ -715,7 +716,7 @@ public class MyProcess {
      */
     private static void grab_output_from_a_non_java_prog_for_testing() throws IOException {
 
-        String[] commands2 = {"c:/windows/system32/query.exe", "session"};
+        String[] commands2 = {"ping","-n","1", "192.168.1.1"};
 
         String line;
         OutputStream stdin = null;
