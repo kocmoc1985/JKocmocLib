@@ -46,6 +46,30 @@ public class MyDS {
         }
         return arr_return;
     }
+    
+    public static HashMap<String,String> joinHashMaps(HashMap p1, HashMap p2) {
+        //
+        HashMap joined_properties = new HashMap();
+        //
+        Set set = p1.keySet();
+        Iterator it = set.iterator();
+        while (it.hasNext()) {
+            String key = (String) it.next();
+            String value = (String)p1.get(key);
+            joined_properties.put(key, value);
+        }
+        //
+        Set set_2 = p2.keySet();
+        Iterator it_2 = set_2.iterator();
+        //
+        while (it_2.hasNext()) {
+            String key = (String) it_2.next();
+            String value = (String)p2.get(key);
+            joined_properties.put(key, value);
+        }
+        //
+        return joined_properties;
+    }
 
     public static Properties joinProperties(Properties p1, Properties p2) {
 
