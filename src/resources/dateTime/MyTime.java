@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.text.DateFormat;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,19 +28,20 @@ public class MyTime {
     private static long[] date_list = {new Long("1352475262539"), new Long("1352474779836"), new Long("1352452070961")};
     private static long ONE_DAY_MILLIS = 86400000;
 
+    /**
+     * [2020-07-24] Fully working
+     * Will return false for: "2020-07-31" and for "2020-18-20"
+     * @param date_yyyy_mm_dd
+     * @return 
+     */
     public static boolean isDateValid(String date_yyyy_mm_dd) {
-        try {
-            DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-            df.setLenient(false);
-            df.parse(date_yyyy_mm_dd);
-            return true;
-        } catch (ParseException e) {
-            return false;
-        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setLenient(false);
+        return sdf.parse(date_yyyy_mm_dd, new ParsePosition(0)) != null;
     }
 
     public static void main(String[] args) {
-        System.out.println("" + isDateValid("2020-07-28"));
+        System.out.println("" + isDateValid("2020-07-29"));
     }
 
     public static boolean isSaturdayOrSunday() {
