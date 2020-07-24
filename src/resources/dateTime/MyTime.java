@@ -27,6 +27,21 @@ public class MyTime {
     private static long[] date_list = {new Long("1352475262539"), new Long("1352474779836"), new Long("1352452070961")};
     private static long ONE_DAY_MILLIS = 86400000;
 
+    public static boolean isDateValid(String date_yyyy_mm_dd) {
+        try {
+            DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+            df.setLenient(false);
+            df.parse(date_yyyy_mm_dd);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("" + isDateValid("2020-07-28"));
+    }
+
     public static boolean isSaturdayOrSunday() {
         //
         Calendar c = Calendar.getInstance();
@@ -230,13 +245,22 @@ public class MyTime {
         return new_date;
     }
 
-    public static void main(String[] args) {
-//        System.out.println("" + get_proper_date_time_same_format_on_all_computers());
-//        System.out.println("" + get_today_with_00_00_00());
-        System.out.println("" + get_today_plus_24h());
-        System.out.println("" + get_today_plus_x_days(30));
-//        System.out.println("PROD_DATE>='2018-11-28 00:00:00.0' AND PROD_DATE<='2018-11-29 13:24:48.75'");
-//        System.out.println("PROD_DATE>='" + get_today_with_00_00_00() + "' AND AND PROD_DATE <='" + get_today_plus_24h() +"' ");
+    public static String get_date_time_plus_some_time_in_days(String date, long days) {
+        String date_format = "yyyy-MM-dd";
+        long time_to_plus = 86400000 * days;
+        long ms = dateToMillisConverter3(date, date_format);
+        long new_date_in_ms = ms + time_to_plus;
+        String new_date = millisToDateConverter("" + new_date_in_ms, date_format);
+        return new_date;
+    }
+
+    public static String get_date_time_minus_some_time_in_days(String date, long days) {
+        String date_format = "yyyy-MM-dd";
+        long time_to_minus = 86400000 * Math.abs(days);
+        long ms = dateToMillisConverter3(date, date_format);
+        long new_date_in_ms = ms - time_to_minus;
+        String new_date = millisToDateConverter("" + new_date_in_ms, date_format);
+        return new_date;
     }
 
     /**
