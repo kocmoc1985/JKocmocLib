@@ -46,7 +46,7 @@ public class MyProperties {
         properties_save_properties_ordered(props, propertiesPath);
         //
     }
-    
+
     public static MyLinkedHashMapDefault properties_load_properties_ordered(String propertiesPath) {
         //
         ArrayList<String> properties_list = properties_load_properties_to_arraylist(propertiesPath);
@@ -75,7 +75,7 @@ public class MyProperties {
         return pseudo_properties;
         //
     }
-    
+
     public static void properties_save_properties_ordered(LinkedHashMap<String, String> lhm, String fileName) throws IOException {
         //
         FileWriter fstream = new FileWriter(fileName, false);
@@ -95,11 +95,12 @@ public class MyProperties {
         }
         out.close();
     }
-    
+
     /**
      * SUPER GOOD
+     *
      * @param path
-     * @return 
+     * @return
      */
     public static Properties choose_properties(String path) {
         String dialog = choose_properties_dialog_string(path);
@@ -218,7 +219,7 @@ public class MyProperties {
     public static void main(String[] args) {
         Properties p = properties_load_properties("test.properties", true);
     }
-    
+
     /**
      *
      * @param path_andOr_fileName "onoff.properties" or
@@ -255,7 +256,7 @@ public class MyProperties {
 
             String rs = br.readLine();
             while (rs != null) {
-                parts = rs.split("=");
+                parts = rs.split("=", 2); // OBS! SUPER IMPORTANT FIX -> ("=",2) [2020-05-29] -> This makes that if you have "=" in the value it will not cause problems by splitting it to
                 if (parts.length == 1) {
                     rs = br.readLine();
                     continue;
