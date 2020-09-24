@@ -40,9 +40,7 @@ public class MyTime {
         return sdf.parse(date_yyyy_mm_dd, new ParsePosition(0)) != null;
     }
 
-    public static void main(String[] args) {
-        System.out.println("" + isDateValid("2020-07-29"));
-    }
+    
 
     public static boolean isSaturdayOrSunday() {
         //
@@ -223,7 +221,31 @@ public class MyTime {
         long ms_date2 = dateToMillisConverter3(date2, date_format2);
         return ms_date1 - ms_date2;
     }
+    
+    /**
+     * 
+     * @param date1
+     * @param date_format1
+     * @param date2
+     * @param date_format2
+     * @return 
+     */
+    public static boolean compareDates(String date1, String date_format1, String date2, String date_format2){
+         //
+         long ms_date1 = dateToMillisConverter3(date1, date_format1);
+         long ms_date2 = dateToMillisConverter3(date2, date_format2);
+         //
+         if(ms_date1 > ms_date2){
+             return true;
+         }else{
+             return false;
+         }
+    }
 
+    public static void main(String[] args) {
+        System.out.println("" + compareDates("2020-09-24", "yyyy-MM-dd", "2020-09-22 13:00:00", "yyyy-MM-dd HH:mm:ss"));
+    }
+    
     /**
      * Usage example: get_date_time_minus_some_time_in_ms("2014-03-21
      * 11:19:15.45", "yyyy-MM-dd HH:mm:ss", 600000));

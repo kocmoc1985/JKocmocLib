@@ -24,6 +24,15 @@ public class MyString {
 
     private static Charset charset_g = Charset.forName("ASCII");
 
+    /**
+     * SUPER IMPORTANT
+     */
+    public static void escapeAndUnescapeStringExamples() {
+//        StringEscapeUtils.unescapeJava(value);
+
+//    value = StringEscapeUtils.escapeJava(value);
+    }
+
     public static void extractParametersFromUrl(String uri) {
         String[] arr = uri.split("\\?");
         System.out.println("" + arr[1]);
@@ -42,11 +51,10 @@ public class MyString {
     }
 
     /**
-     * [2020-08-03]
-     * "å"
-     * Important! In fact when i am getting a String which looks
-     * like "Motors\u00e5g" in output in fact it is like "Motors\\u00e5g"
+     * [2020-08-03] "å" Important! In fact when i am getting a String which
+     * looks like "Motors\u00e5g" in output in fact it is like "Motors\\u00e5g"
      * and must be escaped to show the "å" character
+     *
      * @return
      */
     public static String swedishO() {
