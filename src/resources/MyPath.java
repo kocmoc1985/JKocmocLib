@@ -19,6 +19,10 @@ import java.util.logging.Logger;
  */
 public class MyPath {
 
+    public static String get_desktop_path_more_reliable(){
+        return javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory().toString();
+    }
+    
     public static String get_desktop_path() {
         return System.getProperty("user.home") + "\\" + "Desktop";
     }

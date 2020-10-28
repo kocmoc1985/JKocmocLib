@@ -40,9 +40,7 @@ public class MyTime {
         return sdf.parse(date_yyyy_mm_dd, new ParsePosition(0)) != null;
     }
 
-    public static void main(String[] args) {
-        System.out.println("" + isDateValid("2020-07-29"));
-    }
+    
 
     public static boolean isSaturdayOrSunday() {
         //
@@ -222,6 +220,18 @@ public class MyTime {
         long ms_date1 = dateToMillisConverter3(date1, date_format1);
         long ms_date2 = dateToMillisConverter3(date2, date_format2);
         return ms_date1 - ms_date2;
+    }
+    
+    public static int get_diff_in_days__two_dates(String date1, String date_format1, String date2, String date_format2){
+        long diff= get_diff_between_two_dates(date1, date_format1, date2, date_format2);
+        long days = diff / 86400000;
+        return (int)Math.abs(days);
+    }
+    
+    public static void main(String[] args) {
+        String dateFormat = "yyyy-MM-dd";
+        int days = get_diff_in_days__two_dates("2020-09-26", dateFormat, "2020-10-17", dateFormat);
+        System.out.println("days: " + days);
     }
 
     /**
