@@ -222,18 +222,30 @@ public class MyTime {
         return ms_date1 - ms_date2;
     }
     
-    public static int get_diff_in_days__two_dates(String date1, String date_format1, String date2, String date_format2){
-        long diff= get_diff_between_two_dates(date1, date_format1, date2, date_format2);
-        long days = diff / 86400000;
-        return (int)Math.abs(days);
-    }
-    
-    public static void main(String[] args) {
-        String dateFormat = "yyyy-MM-dd";
-        int days = get_diff_in_days__two_dates("2020-09-26", dateFormat, "2020-10-17", dateFormat);
-        System.out.println("days: " + days);
+    /**
+     * 
+     * @param date1
+     * @param date_format1
+     * @param date2
+     * @param date_format2
+     * @return 
+     */
+    public static boolean compareDates(String date1, String date_format1, String date2, String date_format2){
+         //
+         long ms_date1 = dateToMillisConverter3(date1, date_format1);
+         long ms_date2 = dateToMillisConverter3(date2, date_format2);
+         //
+         if(ms_date1 > ms_date2){
+             return true;
+         }else{
+             return false;
+         }
     }
 
+    public static void main(String[] args) {
+        System.out.println("" + compareDates("2020-09-24", "yyyy-MM-dd", "2020-09-22 13:00:00", "yyyy-MM-dd HH:mm:ss"));
+    }
+    
     /**
      * Usage example: get_date_time_minus_some_time_in_ms("2014-03-21
      * 11:19:15.45", "yyyy-MM-dd HH:mm:ss", 600000));

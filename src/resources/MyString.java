@@ -8,10 +8,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JEditorPane;
 import javax.swing.text.rtf.RTFEditorKit;
+import org.apache.commons.lang.StringEscapeUtils;
 import static resources.MyANSI.codeToString;
 
 /**
@@ -21,6 +23,20 @@ import static resources.MyANSI.codeToString;
 public class MyString {
 
     private static Charset charset_g = Charset.forName("ASCII");
+
+    /**
+     * SUPER IMPORTANT
+     */
+    public static void escapeAndUnescapeStringExamples() {
+//        StringEscapeUtils.unescapeJava(value);
+
+//    value = StringEscapeUtils.escapeJava(value);
+    }
+
+    public static void extractParametersFromUrl(String uri) {
+        String[] arr = uri.split("\\?");
+        System.out.println("" + arr[1]);
+    }
 
     public static String enloseInMySqlSlashes(String str) {
         return "`" + str + "`";
@@ -34,6 +50,24 @@ public class MyString {
         return "\u00b0C\r";
     }
 
+    /**
+     * [2020-08-03] "å" Important! In fact when i am getting a String which
+     * looks like "Motors\u00e5g" in output in fact it is like "Motors\\u00e5g"
+     * and must be escaped to show the "å" character
+     *
+     * @return
+     */
+    public static String swedishO() {
+        String x = "Motors\\u00e5g";
+        return StringEscapeUtils.unescapeJava(x);
+    }
+
+    public static void main(String[] args) {
+        System.out.println("" + celcius());
+        System.out.println("" + swedishO());
+        System.out.println("" + StringEscapeUtils.unescapeJava(swedishO()));
+    }
+
     public static void replaceBrackets() {
         String x = "select * from Main where [Name]='Ihti'";
         x = x.replaceAll("\\[", "`");
@@ -45,15 +79,6 @@ public class MyString {
         String x = "\naaaa\naaaaa";
         x = x.replaceAll("(\r\n|\n)", " ");
         System.out.println("" + x);
-    }
-
-    public static void main(String[] args) {
-//        extractSignalNameFromTag_WH("ns=2;s=_System.Data_Source.Siemens.ML6_M.Status");
-          String x = "A,B,C,D";
-          String[] arr = x.split(",");
-          for (String string : arr) {
-              System.out.println("print: " + string);
-        }
     }
 
     /**
@@ -290,6 +315,15 @@ public class MyString {
         }
     }
 
+    public static boolean firstCharEquals(String str_to_chek, String equals) {
+        String first_char = "" + str_to_chek.charAt(0);
+        if (first_char.equals(equals)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static String getLastChar(String str) {
         int a = str.length() - 1;
         int b = str.length();
@@ -313,10 +347,20 @@ public class MyString {
         return str.substring(0, a);
     }
 
+    public static String delete_last_letter_in_string(String str, String letter) {
+        int a = str.length() - 1;
+        //
+        if (getLastChar(str).equals(letter)) {
+            return str.substring(0, a);
+        } else {
+            return str;
+        }
+        //
+    }
+
     public static String first_letter_to_upper_case(String str) {
         String b = "" + str.charAt(0);
         return str.replaceFirst(b, b.toUpperCase());
-
     }
 
     public static String create_string_from_byte_arr(byte[] in_arr) {
@@ -368,5 +412,15 @@ public class MyString {
     public static String encode_into_hexadecimal_string(String in_str) throws UnsupportedEncodingException {
         return URLEncoder.encode(in_str, "UTF-8");
     }
+
+    private static String _get(String act, String all) {
+        all = all.replaceAll(act, "");
+        String rst = act + "," + all;
+        rst = rst.replaceAll(",,", ",");
+        rst = delete_last_letter_in_string(rst, ",");
+        System.out.println("rst: " + rst);
+        return rst;
+    }
+
 //
 }

@@ -76,7 +76,7 @@ public class MyFile {
     public static void main(String[] args) {
 //        replaceSlashesExample();
         get_path_examples();
-        splitStringWithBackSlash();
+//        splitStringWithBackSlash();
 //        find_file("c:/", "AbsoluteLayout.jar");
 //        System.out.println("file = " + searched_file);
     }

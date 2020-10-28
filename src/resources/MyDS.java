@@ -93,6 +93,33 @@ public class MyDS {
 
         return joined_properties;
     }
+    
+    /**
+     * [2020-04-07]
+     * Reads the values from properties into comma separated string
+     * Example: value1;value2;etc....
+     * @param p
+     * @return 
+     */
+    public static String propertiesValuesToCommaSeparatedString(Properties p) {
+        String str = "";
+        Set set = p.keySet();
+        Iterator it = set.iterator();
+        while (it.hasNext()) {
+            String key = (String) it.next();
+            String value = p.getProperty(key);
+            //
+            if (value.isEmpty() == false) {
+                if (str.isEmpty() == false) {
+                    str += ";" + value;
+                } else {
+                    str += value;
+                }
+            }
+            //
+        }
+        return str;
+    }
 
     public static ArrayList propertiesKeysToArrayList(Properties p) {
         ArrayList<String> list_to_return = new ArrayList<String>();

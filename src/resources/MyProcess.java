@@ -114,6 +114,28 @@ public class MyProcess {
         builder.directory(new File(path));
         builder.start();
     }
+    
+    /**
+     * f you run .exe from the same dir use * "." for path parameter
+     *
+     * @param application_to_run_name
+     * @param arg
+     * @param path
+     * @throws IOException
+     */
+    public static void run_application_jar_with_argument(String application_to_run_name, String arg1,String arg2, String path) throws IOException {
+        String[] commands = new String[5];
+        if (application_to_run_name.contains(".jar")) {
+            commands[0] = "java";
+            commands[1] = "-jar";
+            commands[2] = application_to_run_name; //OBS! pay attention here
+            commands[3] = arg1;
+            commands[4] = arg2;
+        }
+        ProcessBuilder builder = new ProcessBuilder(commands);
+        builder.directory(new File(path));
+        builder.start();
+    }
 
     /**
      * This one is BEST! Suits both for launching .exe & .jar files
