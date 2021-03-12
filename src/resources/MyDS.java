@@ -293,9 +293,14 @@ public class MyDS {
                 int val_1 = (Integer) map.get(key);
                 double val_2 = (Double) value;
                 result = (double) (val_1 + val_2);
+            } else if (map.get(key) instanceof Double && value instanceof Double) {
+                double val_1 = (Double) map.get(key);
+                double val_2 = (Double) value;
+                result = (double) (val_1 + val_2);
             }
-
+            //
             return update_value_hash_map(key, result, map);
+            //
         } else {
             map.put(key, value);
             return map;

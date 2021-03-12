@@ -18,6 +18,23 @@ import java.util.logging.Logger;
  * @author Administrator
  */
 public class MyPath {
+    
+    private static void get_path_examples() {
+        File f = new File("xml/testDir/testDir2/dd.xml"); //xml/testDir/testDir2/dd.xml
+        System.out.println("getName() = " + f.getName());
+        System.out.println("getPath() = " + f.getPath());
+        System.out.println("getAbsolutePath() = " + f.getAbsolutePath());
+        System.out.println("getParent() = " + f.getParent());
+        System.out.println("getParentFile().getName() = " + f.getParentFile().getName());
+        System.out.println("f.getAbsoluteFile().getName() = " + f.getAbsoluteFile().getName());
+        try {
+            System.out.println("getCanonicalPath() = " + f.getCanonicalPath());
+        } catch (IOException ex) {
+            Logger.getLogger(MyFile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println("");
+    }
 
     public static String get_desktop_path() {
         return System.getProperty("user.home") + "\\" + "Desktop";
