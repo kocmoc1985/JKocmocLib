@@ -85,9 +85,27 @@ public class MyProcess {
             commands[1] = "-jar";
             commands[2] = application_to_run_name; //OBS! pay attention here
         } else {
+            //OBS! If path is the actual dir have it = "."
             commands[0] = path + "/" + application_to_run_name; // and here!
             commands[1] = "";
             commands[2] = "";
+        }
+        ProcessBuilder builder = new ProcessBuilder(commands);
+        builder.directory(new File(path));
+        builder.start();
+    }
+    
+    public static void run_application_exe_or_jar(String application_to_run_name, String path, String cmd1, String cmd2) throws IOException {
+        String[] commands = new String[3];
+        if (application_to_run_name.contains(".jar")) {
+            commands[0] = "java";
+            commands[1] = "-jar";
+            commands[2] = application_to_run_name; //OBS! pay attention here
+        } else {
+            //OBS! If path is the actual dir have it = "."
+            commands[0] = path + "/" + application_to_run_name; // and here! 
+            commands[1] = cmd1;
+            commands[2] = cmd2;
         }
         ProcessBuilder builder = new ProcessBuilder(commands);
         builder.directory(new File(path));
