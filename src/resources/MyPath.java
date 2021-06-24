@@ -35,6 +35,10 @@ public class MyPath {
 
         System.out.println("");
     }
+    
+     public static void main(String[] args) {
+        get_path_examples();
+    }
 
     public static String get_desktop_path_more_reliable(){
         return javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory().toString();
@@ -63,9 +67,7 @@ public class MyPath {
         }
     }
     
-     public static void main(String[] args) {
-        currentPathExample();
-    }
+    
 
     /**
      * THIS IS MEGA-IMPORTANT! Example it "optimises" the link like:
