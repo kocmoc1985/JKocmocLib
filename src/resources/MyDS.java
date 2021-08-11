@@ -223,6 +223,7 @@ public class MyDS {
             String key = (String) it.next();
             String value = (String) p.get(key);
             System.out.println("key = " + key + "  value = " + value);
+            it.remove();// avoids a ConcurrentModificationException
         }
     }
 

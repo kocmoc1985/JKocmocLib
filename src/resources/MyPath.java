@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * @author Administrator
  */
 public class MyPath {
-    
+
     private static void get_path_examples() {
         File f = new File("xml/testDir/testDir2/dd.xml"); //xml/testDir/testDir2/dd.xml
         System.out.println("getName() = " + f.getName());
@@ -36,19 +36,41 @@ public class MyPath {
         System.out.println("");
     }
 
-    public static String get_desktop_path_more_reliable(){
-        return javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory().toString();
+    /**
+     * SUPER IMPORTANT
+     * URL url = MyPath.class.getResource("nonJavaFiles/example.xml");
+     * @param url
+     * @return
+     */
+    public static String getFileNameFromURL(URL url) {
+        //
+        try {
+            File f = new File(url.toURI());
+            return f.getName();
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(MyPath.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
     
+    public static void main(String[] args) {
+        URL url = MyPath.class.getResource("nonJavaFiles/example.xml");
+        System.out.println(""+ getFileNameFromURL(url));
+    }
+
+    public static String get_desktop_path_more_reliable() {
+        return javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory().toString();
+    }
+
     public static String get_desktop_path() {
         return System.getProperty("user.home") + "\\" + "Desktop";
     }
-    
+
     public static String[] splitStringWithPoint(String strToSplit) {
         return strToSplit.split("\\.");
     }
-    
-    public static void previousPathExample(){
+
+    public static void previousPathExample() {
         try {
             MyProcess.run_application_exe_or_jar("pixie.exe", "../"); //step out one directory
         } catch (IOException ex) {
@@ -61,10 +83,6 @@ public class MyPath {
         for (File file : f) {
             System.out.println("file = " + file.getName());
         }
-    }
-    
-     public static void main(String[] args) {
-        currentPathExample();
     }
 
     /**
@@ -156,9 +174,21 @@ public class MyPath {
     }
 
     public static void test() {
-        URL url = MyPath.class.getResource("telnet/TelnetCl.java");
+        //
+        URL url = MyPath.class.getResource("nonJavaFiles/example.xml");
+        //
+        try {
+            File f = new File(url.toURI());
+            System.out.println("" + f.getName());
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(MyPath.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //
+        System.out.println("" + url.getFile());
         System.out.println("" + url.getPath());
     }
+
+    
 
     /**
      * Very useful, when using JavaNative. This method adjusts where the Java
@@ -193,5 +223,4 @@ public class MyPath {
         }
     }
 
-   
 }

@@ -35,9 +35,10 @@ public class MyBinary {
     //s%=so&s%=rev&eurt=wpi&s%=tneilc&moc_ptth_=knil?php.xedni/moc.tnocxim.www//:ptth
    public static void main(String[] args) {
 //       String reversed = reverseString("http://www.mixcont.com/index.php?link=_http_com&client=%s&ipw=true&ver=%s&os=%s");
-       String reversed = reverseString("mixcont.com");
-        System.out.println("" + reversed);
-        System.out.println("" + reverseString(reversed));
+//       String reversed = reverseString("mixcont.com");
+//        System.out.println("" + reversed);
+//        System.out.println("" + reverseString(reversed));
+          System.out.println("" + string_to_binary("rada"));
     }
     
     /**
