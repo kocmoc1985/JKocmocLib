@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -282,6 +283,28 @@ public class MyFile {
 
         in.close();
         out.close();
+    }
+    
+    /**
+     * Call example: copy_file_b(getClass().getResourceAsStream("/icons/ic.ico"),  "destFolder/ic.ico");
+     * @param source
+     * @param destination
+     * @return 
+     */
+    public static boolean copy_file_b(InputStream source , String destination) {
+        //
+        boolean succeess = true;
+        //
+        System.out.println("Copying ->" + source + "\n\tto ->" + destination);
+        //
+        try {
+            Files.copy(source, Paths.get(destination), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
+            succeess = false;
+        }
+        //
+        return succeess;
+
     }
 
     public static void move_file(String file_to_copy, String name_of_duplicate) throws FileNotFoundException, IOException {

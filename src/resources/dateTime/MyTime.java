@@ -28,6 +28,8 @@ public class MyTime {
     private static long[] date_list = {new Long("1352475262539"), new Long("1352474779836"), new Long("1352452070961")};
     private static long ONE_DAY_MILLIS = 86400000;
 
+    
+    
     /**
      * [2020-07-24] Fully working
      * Will return false for: "2020-07-31" and for "2020-18-20"
@@ -426,6 +428,16 @@ public class MyTime {
             Logger.getLogger(MyCalcDiffBetweenTwoTimePoints.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
+    }
+    
+    /**
+     * Will return "act-yera-01-01" (2021-01-01)
+     * @return 
+     */
+     public static String get_act_year_first_date() {
+        DateFormat formatter = new SimpleDateFormat("yyyy");
+        Calendar calendar = Calendar.getInstance();
+        return formatter.format(calendar.getTime()) + "-01-01";
     }
 
     /**

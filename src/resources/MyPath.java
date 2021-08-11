@@ -35,6 +35,10 @@ public class MyPath {
 
         System.out.println("");
     }
+    
+     public static void main(String[] args) {
+        get_path_examples();
+    }
 
     /**
      * SUPER IMPORTANT
