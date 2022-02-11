@@ -50,6 +50,7 @@ public class MathGame extends javax.swing.JFrame {
         jLabel4_ammount_wrong = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4_total = new javax.swing.JLabel();
+        jLabel4_count_down = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,30 +90,38 @@ public class MathGame extends javax.swing.JFrame {
 
         jLabel4_total.setText(".....");
 
+        jLabel4_count_down.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4_count_down.setText(".....");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3_ammount_correct)
-                        .addGap(103, 103, 103)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4_ammount_wrong)
-                        .addGap(69, 69, 69)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4_total))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
-                        .addComponent(jTextField1)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel3_ammount_correct)
+                                .addGap(103, 103, 103)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4_ammount_wrong)
+                                .addGap(69, 69, 69)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4_total))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
+                                .addComponent(jTextField1)
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(171, 171, 171)
+                        .addComponent(jLabel4_count_down, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -134,7 +143,9 @@ public class MathGame extends javax.swing.JFrame {
                     .addComponent(jLabel4_total))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(38, 38, 38)
+                .addComponent(jLabel4_count_down, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
         pack();
@@ -145,23 +156,19 @@ public class MathGame extends javax.swing.JFrame {
     //
     int LOW = 1;
     int HIGH = 20;
+    boolean TIMER_ACTIVE = false;
     //
     //
     int result_a = 0;
     int result_b = 0;
-    //
     int flag = 0;
-    //
     boolean calc_plus;
-    //
     int TOTAL = 0;
-    //
     int CORRECT = 0;
     int WRONG = 0;
     //
-    //
-    boolean TIMER_ACTIVE = true;
-    long START_CALC = 0;
+    //    
+    long START_CALC;
     long MAX_MS = 10000;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -169,7 +176,7 @@ public class MathGame extends javax.swing.JFrame {
         TOTAL++;
         jLabel4_total.setText("" + TOTAL);
         //
-        if(TIMER_ACTIVE){
+        if (TIMER_ACTIVE) {
             START_CALC = System.currentTimeMillis();
             Thread x = new Thread(new Timer());
             x.start();
@@ -197,9 +204,14 @@ public class MathGame extends javax.swing.JFrame {
         public void run() {
             while (run) {
                 wait_();
-                if(System.currentTimeMillis() - START_CALC > MAX_MS){
+                //
+                long diff = System.currentTimeMillis() - START_CALC;
+                //
+                if (diff > MAX_MS) {
                     System.out.println("TIME IS UP");
                     run = false;
+                } else {
+                    jLabel4_count_down.setText("" + diff);
                 }
             }
 
@@ -247,7 +259,13 @@ public class MathGame extends javax.swing.JFrame {
 
     private void check_plus_a() {
         //
-        int resultat = Integer.parseInt(jTextField1.getText());
+        String val = jTextField1.getText();
+        //
+        if(val == null || val.isEmpty()){
+            return;
+        }
+        //
+        int resultat = Integer.parseInt(val);
         //
         if (resultat == (result_a + result_b)) {
             correctAnswer();
@@ -336,6 +354,7 @@ public class MathGame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel3_ammount_correct;
     private javax.swing.JLabel jLabel4_ammount_wrong;
+    private javax.swing.JLabel jLabel4_count_down;
     private javax.swing.JLabel jLabel4_total;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
