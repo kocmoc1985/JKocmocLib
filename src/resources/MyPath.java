@@ -57,10 +57,6 @@ public class MyPath {
         }
     }
     
-    public static void main(String[] args) {
-        URL url = MyPath.class.getResource("nonJavaFiles/example.xml");
-        System.out.println(""+ getFileNameFromURL(url));
-    }
 
     public static String get_desktop_path_more_reliable() {
         return javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory().toString();

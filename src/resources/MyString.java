@@ -62,11 +62,7 @@ public class MyString {
         return StringEscapeUtils.unescapeJava(x);
     }
 
-    public static void main(String[] args) {
-        System.out.println("" + celcius());
-        System.out.println("" + swedishO());
-        System.out.println("" + StringEscapeUtils.unescapeJava(swedishO()));
-    }
+   
 
     public static void replaceBrackets() {
         String x = "select * from Main where [Name]='Ihti'";
@@ -74,11 +70,25 @@ public class MyString {
         x = x.replaceAll("\\]", "`");
         System.out.println("" + x);
     }
+    
+    public static void replaceNewLine_slash_n__back() {
+        String x = "#&@aaaa#&@bbbb#&@ccccc";
+        x = x.replaceAll("#&@", "\n");
+        System.out.println("" + x);
+    }
 
     public static void replaceNewLine_slash_n() {
-        String x = "\naaaa\naaaaa";
+        String x = "\naaaa\nbbbb\nccccc";
         x = x.replaceAll("(\r\n|\n)", " ");
         System.out.println("" + x);
+    }
+    
+     public static void main(String[] args) {
+//        replaceNewLine_slash_n();
+        replaceNewLine_slash_n__back();
+        System.out.println("" + celcius());
+        System.out.println("" + swedishO());
+        System.out.println("" + StringEscapeUtils.unescapeJava(swedishO()));
     }
 
     /**
