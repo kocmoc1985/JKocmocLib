@@ -69,6 +69,7 @@ public class MathGame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton2.setText("TESTA");
@@ -151,11 +152,11 @@ public class MathGame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     //
-//    int LOW = 9;
-//    int HIGH = 50;
+    int LOW = 9;
+    int HIGH = 50;
     //
-    int LOW = 1;
-    int HIGH = 20;
+//    int LOW = 1;
+//    int HIGH = 20;
     boolean TIMER_ACTIVE = false;
     //
     //
@@ -194,6 +195,7 @@ public class MathGame extends javax.swing.JFrame {
         //
         jButton1.setEnabled(false);
         //
+        jTextField1.requestFocus();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     class Timer implements Runnable {
@@ -255,6 +257,8 @@ public class MathGame extends javax.swing.JFrame {
         } else {
             check_minus_a();
         }
+        //
+        jTextField1.requestFocus();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void check_plus_a() {
