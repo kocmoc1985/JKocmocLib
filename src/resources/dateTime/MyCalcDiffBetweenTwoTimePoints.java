@@ -73,9 +73,11 @@ public class MyCalcDiffBetweenTwoTimePoints {
 
         int division = 0;
         if (mode == 1) {
-            division = 1000;
+            division = 1000; // seconds
         } else if (mode == 2) {
-            division = 60000;
+            division = 60000; // minutes
+        }else if(mode == 3){
+            division = 86400000; // days
         }
 
         return (int) (diff / division);
@@ -96,6 +98,7 @@ public class MyCalcDiffBetweenTwoTimePoints {
 //        String formated_date = dateFromMC_MIXPARAMS_HIST_to_normal_date_time_format("2011-03-09 16:37:48.880");
 //        System.out.println("" + formated_date);
 
-        System.out.println("" + findDiffBetweenTwoDates("2011-03-09 16:37:48", "2011-03-09 16:40:48", 2));
+        System.out.println("" + findDiffBetweenTwoDates("2022-01-24 00:00:00", "2022-03-21 00:00:00", 3));
+//        System.out.println("" + findDiffBetweenTwoDates("2022-01-24 00:00:00", "2022-01-26 00:00:00", 3));
     }
 }
