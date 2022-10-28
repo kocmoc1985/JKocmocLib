@@ -26,9 +26,7 @@ import java.util.logging.Logger;
  */
 public class MyDS {
 
-    public static void main(String[] args) {
-
-    }
+    
 
     public static int counteNrOfSameElementsInList(ArrayList<String> list, String theEntryToCount) {
         return Collections.frequency(list, theEntryToCount);
@@ -336,5 +334,35 @@ public class MyDS {
         int x = linkedList.poll();
         //
         System.out.println("x: " + x);
+    }
+    
+    public static void extract_ip_from_mclauncher_log__trell(String filename) {
+//        ArrayList<String> list = new ArrayList<String>();
+        HashSet<String> list = new HashSet<String>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+            String[] parts;
+            String rs = br.readLine();
+            while (rs != null) {
+                parts = rs.split("     ");
+                list.add(parts[1].substring(0, 12));
+                rs = br.readLine();
+            }
+
+        } catch (IOException e) {
+            Logger.getLogger(MyDS.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+        String[]arr = list.toArray(new String[list.size()]);
+        int i = 1;
+        for (String string : arr) {
+            System.out.println("("+i+")" + string);
+            i++;
+        }
+    }
+    
+    public static void main(String[] args) {
+      extract_ip_from_mclauncher_log__trell("trell.txt");
+      
     }
 }

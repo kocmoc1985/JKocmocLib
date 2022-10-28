@@ -95,7 +95,7 @@ public class MyCalcDiffBetweenTwoTimePoints {
     public static void main(String[] args) {
 //        String formated_date = dateFromMC_MIXPARAMS_HIST_to_normal_date_time_format("2011-03-09 16:37:48.880");
 //        System.out.println("" + formated_date);
-
-        System.out.println("" + findDiffBetweenTwoDates("2011-03-09 16:37:48", "2011-03-09 16:40:48", 2));
+        // 1 day 1440 minutes
+        System.out.println("" + findDiffBetweenTwoDates("2022-08-12 00:00:00", "2022-12-31 00:00:00", 2));
     }
 }
