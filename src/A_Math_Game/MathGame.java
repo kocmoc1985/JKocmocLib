@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Examples;
+package A_Math_Game;
 
 import java.util.Random;
 import java.util.logging.Level;
@@ -152,12 +152,12 @@ public class MathGame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     //
-    int LOW = 9;
-    int HIGH = 50;
+    int LOW = 1;
+    int HIGH = 1000;
     //
 //    int LOW = 1;
 //    int HIGH = 20;
-    boolean TIMER_ACTIVE = false;
+    boolean TIMER_ACTIVE = true;
     //
     //
     int result_a = 0;
