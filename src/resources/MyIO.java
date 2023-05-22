@@ -6,6 +6,7 @@ package resources;
 
 import java.util.*;
 import java.io.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,13 +14,67 @@ import java.io.*;
  */
 public class MyIO {
 
+    public static void find_an_entry_in_a_file_and_change(String filePath, String toSearch) {
+        //
+        boolean entry_found = false;
+        String deviceNewName = JOptionPane.showInputDialog(null, "Type the new name of the device");
+        //
+        if (deviceNewName == null || deviceNewName.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "The device name is empty, could not save");
+            return;
+        } else if (deviceNewName.contains(" ")) {
+            JOptionPane.showMessageDialog(null, "The device name contains spaces, could not save");
+            return;
+        }
+        //
+        List<String> lines = new ArrayList<String>();
+        String line = null;
+        //
+        try {
+            File f1 = new File(filePath); // "d:/new folder/t1.htm"
+            FileReader fr = new FileReader(f1);
+            BufferedReader br = new BufferedReader(fr);
+            while ((line = br.readLine()) != null) {
+                if (line.contains(toSearch)) {
+                    entry_found = true;
+                    line = toSearch + "=" + deviceNewName;
+                }
+                lines.add(line + "\n");
+            }
+            //
+            fr.close();
+            br.close();
+            //
+            if (entry_found == false) {
+                JOptionPane.showMessageDialog(null, toSearch + ": not found");
+                return;
+            }
+            //
+            FileWriter fw = new FileWriter(f1);
+            BufferedWriter out = new BufferedWriter(fw);
+            for (String s : lines) {
+                out.write(s);
+            }
+            out.flush();
+            out.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        //
+        find_an_entry_in_a_file_and_change("mdr.ini", "DeviceName_Text"); //"DeviceName_Text=MDR04"
+        //
+    }
+
     /**
      *
      * @param fileName
      * @param textToWrite
      * @throws IOException
      */
-     public static void writeToFile(String fileName, String textToWrite,boolean apend) throws IOException {
+    public static void writeToFile(String fileName, String textToWrite, boolean apend) throws IOException {
         FileWriter fstream = new FileWriter(fileName, apend);
         BufferedWriter out = new BufferedWriter(fstream);
         //
@@ -29,7 +84,6 @@ public class MyIO {
         out.flush();
         out.close();
     }
-
 
     /**
      * Läser av text filen och lagrar informationen i en
@@ -133,34 +187,6 @@ public class MyIO {
         } catch (Exception e) {//Catch exception if any
             System.err.println("Error: " + e.getMessage());
         }
-    }
-    
-    public static void main(String[] args) {
-        String[]arr = new String[]
-        {
-            "@echo off",
-            "SETLOCAL ENABLEDELAYEDEXPANSION",
-            "SET LinkName=LAFaktureringTest",
-            "SET Esc_LinkDest=%%HOMEDRIVE%%%%HOMEPATH%%\\Desktop\\!LinkName!.lnk",
-            "SET Esc_LinkTarget=%CD%\\la.jar",
-            "SET cSctVBS=CreateShortcut.vbs",
-            "SET LOG=\".\\%~N0_.log\"",
-            "((",
-            "echo Set oWS = WScript.CreateObject^(\"WScript.Shell\"^) ",
-            "echo sLinkFile = oWS.ExpandEnvironmentStrings^(\"!Esc_LinkDest!\"^)",
-            "echo Set oLink = oWS.CreateShortcut^(sLinkFile^)",
-            "echo oLink.TargetPath = oWS.ExpandEnvironmentStrings^(\"!Esc_LinkTarget!\"^)",
-            "echo oLink.IconLocation = \"%CD%\\la\\ic.ico\"",
-            "echo oLink.WorkingDirectory = \"%CD%\"",
-            "echo oLink.Save",
-            ")1>!cSctVBS!",
-            "cscript //nologo .\\!cSctVBS!",
-            "DEL !cSctVBS! /f /q",
-            ")1>>!LOG! 2>>&1"
-        };
-        //
-        write("shortcut.cmd", arr);
-        //
     }
 
     /**
