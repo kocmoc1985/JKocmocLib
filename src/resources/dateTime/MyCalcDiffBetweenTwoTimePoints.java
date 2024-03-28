@@ -61,7 +61,7 @@ public class MyCalcDiffBetweenTwoTimePoints {
      * 
      * @param date_1
      * @param date_2
-     * @param mode - mode = 1 - return in seconds, mode = 2 - return in minutes
+     * @param mode - mode = 1 - return in seconds, mode = 2 - return in minutes, mode = 3 - days
      * @return 
      */
     public static int findDiffBetweenTwoDates(String date_1, String date_2, int mode) {
@@ -98,7 +98,8 @@ public class MyCalcDiffBetweenTwoTimePoints {
 //        String formated_date = dateFromMC_MIXPARAMS_HIST_to_normal_date_time_format("2011-03-09 16:37:48.880");
 //        System.out.println("" + formated_date);
 
-        System.out.println("" + findDiffBetweenTwoDates("2022-01-24 00:00:00", "2022-03-21 00:00:00", 3));
+//        System.out.println("" + findDiffBetweenTwoDates("2022-01-24 00:00:00", "2022-03-21 00:00:00", 3));
 //        System.out.println("" + findDiffBetweenTwoDates("2022-01-24 00:00:00", "2022-01-26 00:00:00", 3));
+        System.out.println("" + findDiffBetweenTwoDates("2022-01-24 00:00:00", "2022-01-26 00:00:00", 3));
     }
 }

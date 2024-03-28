@@ -8,13 +8,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JEditorPane;
 import javax.swing.text.rtf.RTFEditorKit;
 import org.apache.commons.lang.StringEscapeUtils;
-import static resources.MyANSI.codeToString;
 
 /**
  *

@@ -17,6 +17,7 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,20 +28,28 @@ import java.util.logging.Logger;
  */
 public class MyBinary {
 
-    
-    public static String reverseString(String toReverse){
+    public static String reverseString(String toReverse) {
         return new StringBuilder(toReverse).reverse().toString();
     }
-    
+
     //s%=so&s%=rev&eurt=wpi&s%=tneilc&moc_ptth_=knil?php.xedni/moc.tnocxim.www//:ptth
-   public static void main(String[] args) {
+    public static void main(String[] args) {
 //       String reversed = reverseString("http://www.mixcont.com/index.php?link=_http_com&client=%s&ipw=true&ver=%s&os=%s");
 //       String reversed = reverseString("mixcont.com");
 //        System.out.println("" + reversed);
 //        System.out.println("" + reverseString(reversed));
-          System.out.println("" + string_to_binary("rada"));
+//          System.out.println("" + string_to_binary("rada"));
+        test();
     }
-    
+
+    public static void test() {
+//       System.out.println("" + System.getProperty("sun.jnu.encoding"));
+//       System.out.println("ä".getBytes(StandardCharsets.UTF_8));
+//       System.out.println("ä".getBytes(StandardCharsets.US_ASCII));
+//       System.out.println("");
+        System.out.println("" + convert_byteArray_to_string());
+    }
+
     /**
      * Omvandlar ett tal till Binär form
      *
@@ -76,8 +85,6 @@ public class MyBinary {
     public static String decimal_to_binary(int nr) {
         return "" + Integer.toBinaryString(nr);
     }
-    
-   
 
     /**
      * Omvandlar Sträng i binär form till tal
@@ -114,8 +121,6 @@ public class MyBinary {
     public static int string_to_decimal_(String str) {
         return (int) str.charAt(0);
     }
-    
-   
 
     /**
      * String into binary
@@ -185,7 +190,7 @@ public class MyBinary {
     }
 
     public static String convert_byteArray_to_string() {
-        byte[] byteArray = new byte[]{87, 79, 87, 46, 46, 46};
+        byte[] byteArray = new byte[]{87, 79, 87, 46, 46, 46, 111};
         String value = new String(byteArray);
         return value;
     }
@@ -246,7 +251,6 @@ public class MyBinary {
         return o;
     }
 
-   
 //==============================================================================
     public static Object fileToObjectSecured(String fileName) {
         try {
@@ -266,7 +270,6 @@ public class MyBinary {
             Logger.getLogger(MyBinary.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 
     private static Object fileToObject(String path) throws IOException, ClassNotFoundException {
         FileInputStream fas = new FileInputStream(path);
