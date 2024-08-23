@@ -5,6 +5,8 @@
  */
 package Examples;
 
+import java.util.HashMap;
+
 /**
  *
  * @author KOCMOC
@@ -12,7 +14,32 @@ package Examples;
 public class Test_A {
 
     public static void main(String[] args) {
-        System.out.println("" + r("lafakturering.se"));
+//        System.out.println("" + b03(37, 99, 37)); //#TEST-BEST-OF-3#
+        hashmap();
+    }
+    
+    private static void hashmap(){
+        HashMap<String, String>map = new HashMap<>();
+        map.put("-/-123--/", "7");
+        map.put("-/-123--/", "7");
+        map.put("-/-123--/", "7");
+        System.out.println("");
+    }
+
+    private static int b03(int a, int b, int c) {
+        if (a >= b && a >= c) {
+            System.out.println("A");
+            return a;
+        } else if (b >= a && b >= c) {
+            System.out.println("B");
+            return b;
+        } else if (c >= a && c >= b) {
+            System.out.println("C");
+            return c;
+        }else{
+            System.out.println("ELSE");
+            return a;
+        } 
     }
 
     public static String r(String s) {

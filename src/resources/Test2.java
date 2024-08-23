@@ -14,9 +14,8 @@ import java.io.File;
 public class Test2 {
 
     public static void main(String[] args) {
-        String fileName = "mcbrowser.setting.properties";
-        
-        check_if_specs_file_exist("mcbrowser.setting.properties");
+        Boolean x = Boolean.valueOf("1");
+        System.out.println("x: " + x);
     }
     
     

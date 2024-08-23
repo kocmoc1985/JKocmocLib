@@ -162,7 +162,7 @@ public class MyMath {
      * @return String random value
      */
     public static String random() {
-        int x = (int) ((Math.random() * 5000) + 100);//((Math.random() * 100) + 1)
+        int x = (int) ((Math.random() * 100) + 1);//((Math.random() * 100) + 1)
         return "" + x;
     }
     

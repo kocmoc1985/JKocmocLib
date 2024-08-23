@@ -56,6 +56,7 @@ public class MyInternals {
 
     public static void main(String[] args) {
         System.out.println("" + getJavaVersionAndBit());
+               
     }
 
     public static void shut_down_immediately() throws IOException {
