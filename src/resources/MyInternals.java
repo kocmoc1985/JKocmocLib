@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
+import resources.Loggers.SimpleLoggerLight;
 
 /**
  *
@@ -33,7 +34,8 @@ public class MyInternals {
 
     /**
      * Also checks if it is 32 or 64bit.
-     * @return 
+     *
+     * @return
      */
     public static String getJavaVersionAndBit() {
         return System.getProperty("java.version") + "/" + System.getProperty("sun.arch.data.model");
@@ -52,11 +54,6 @@ public class MyInternals {
         String ver = System.getProperty("java.version");
         ver = ver.substring(0, 3);
         return Double.parseDouble(ver);
-    }
-
-    public static void main(String[] args) {
-        System.out.println("" + getJavaVersionAndBit());
-               
     }
 
     public static void shut_down_immediately() throws IOException {
@@ -153,8 +150,40 @@ public class MyInternals {
         }
     }
 
+    public static void main(String[] args) {
+
+        //        System.out.println("" + getJavaVersionAndBit());
+        try {
+            mouse_moved_log();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MyInternals.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    /**
+     * mouse_moved mouseMoved
+     *
+     * @return
+     * @throws InterruptedException
+     */
+    public static void mouse_moved_log() throws InterruptedException {
+        Point currLocation = MouseInfo.getPointerInfo().getLocation();
+        while (true) {
+            Thread.sleep(1000);
+            Point newLocation = MouseInfo.getPointerInfo().getLocation();
+            if (newLocation.equals(currLocation)) {
+                //not moved
+            } else {
+                SimpleLoggerLight.logg("t.log", "");
+            }
+            currLocation = newLocation;
+        }
+    }
+
     /**
      * A very useful method to be able to evaluate if the user is idle
+     * mouse_moved mouseMoved
      *
      * @throws InterruptedException
      */
@@ -331,7 +360,7 @@ public class MyInternals {
             System.exit(0);
         }
     }
-    
+
     /**
      * @tags grab_output, grab_out_put, grab output
      * @param path_to_executing_app
@@ -365,7 +394,7 @@ public class MyInternals {
         }
         return false;
     }
-    
+
     public static void run_service(String path_to_program, String p1, String p2) {
         String[] cmd = {path_to_program, p1, p2};
         try {

@@ -28,21 +28,18 @@ public class MyTime {
     private static long[] date_list = {new Long("1352475262539"), new Long("1352474779836"), new Long("1352452070961")};
     private static long ONE_DAY_MILLIS = 86400000;
 
-    
-    
     /**
-     * [2020-07-24] Fully working
-     * Will return false for: "2020-07-31" and for "2020-18-20"
+     * [2020-07-24] Fully working Will return false for: "2020-07-31" and for
+     * "2020-18-20"
+     *
      * @param date_yyyy_mm_dd
-     * @return 
+     * @return
      */
     public static boolean isDateValid(String date_yyyy_mm_dd) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(false);
         return sdf.parse(date_yyyy_mm_dd, new ParsePosition(0)) != null;
     }
-
-    
 
     public static boolean isSaturdayOrSunday() {
         //
@@ -223,31 +220,27 @@ public class MyTime {
         long ms_date2 = dateToMillisConverter3(date2, date_format2);
         return ms_date1 - ms_date2;
     }
-    
+
     /**
-     * 
+     *
      * @param date1
      * @param date_format1
      * @param date2
      * @param date_format2
-     * @return 
+     * @return
      */
-    public static boolean compareDates(String date1, String date_format1, String date2, String date_format2){
-         //
-         long ms_date1 = dateToMillisConverter3(date1, date_format1);
-         long ms_date2 = dateToMillisConverter3(date2, date_format2);
-         //
-         if(ms_date1 > ms_date2){
-             return true;
-         }else{
-             return false;
-         }
+    public static boolean compareDates(String date1, String date_format1, String date2, String date_format2) {
+        //
+        long ms_date1 = dateToMillisConverter3(date1, date_format1);
+        long ms_date2 = dateToMillisConverter3(date2, date_format2);
+        //
+        if (ms_date1 > ms_date2) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public static void main(String[] args) {
-        System.out.println("" + compareDates("2020-09-24", "yyyy-MM-dd", "2020-09-22 13:00:00", "yyyy-MM-dd HH:mm:ss"));
-    }
-    
     /**
      * Usage example: get_date_time_minus_some_time_in_ms("2014-03-21
      * 11:19:15.45", "yyyy-MM-dd HH:mm:ss", 600000));
@@ -429,12 +422,13 @@ public class MyTime {
             return -1;
         }
     }
-    
+
     /**
      * Will return "act-yera-01-01" (2021-01-01)
-     * @return 
+     *
+     * @return
      */
-     public static String get_act_year_first_date() {
+    public static String get_act_year_first_date() {
         DateFormat formatter = new SimpleDateFormat("yyyy");
         Calendar calendar = Calendar.getInstance();
         return formatter.format(calendar.getTime()) + "-01-01";
@@ -627,6 +621,11 @@ public class MyTime {
      */
     public static long hours_to_milliseconds_converter(int hours) {
         return hours * 3600000;
+    }
+
+    public static void main(String[] args) {
+//        System.out.println("" + compareDates("2020-09-24", "yyyy-MM-dd", "2020-09-22 13:00:00", "yyyy-MM-dd HH:mm:ss"));
+        System.out.println("" + days_to_milliseconds_converter(27));
     }
 
     /**

@@ -13,37 +13,25 @@ import java.util.HashMap;
  */
 public class Test_A {
 
+    public static final String RECIPE = "23-?-42-1 - 3";
+
     public static void main(String[] args) {
-//        System.out.println("" + b03(37, 99, 37)); //#TEST-BEST-OF-3#
-        hashmap();
-    }
-    
-    private static void hashmap(){
-        HashMap<String, String>map = new HashMap<>();
-        map.put("-/-123--/", "7");
-        map.put("-/-123--/", "7");
-        map.put("-/-123--/", "7");
-        System.out.println("");
+        int a = 1;
+        double b = (Double)a;
     }
 
-    private static int b03(int a, int b, int c) {
-        if (a >= b && a >= c) {
-            System.out.println("A");
-            return a;
-        } else if (b >= a && b >= c) {
-            System.out.println("B");
-            return b;
-        } else if (c >= a && c >= b) {
-            System.out.println("C");
-            return c;
-        }else{
-            System.out.println("ELSE");
-            return a;
-        } 
+    private static String extractRecipeRaw(String recipeID) {
+        String[] arr = recipeID.split(" ");
+        System.out.println("recipe raw: " + arr[0]);
+        return arr[0];
     }
 
-    public static String r(String s) {
-        return new StringBuilder(s).reverse().toString();
+    private static String extractRelease(String recipeID) {
+        String temp = recipeID.replaceAll(" ", "");
+        String[] arr = temp.split("-");
+        String release = arr[arr.length - 1];
+        System.out.println("release: " + release);
+        return release;
     }
 
 }
