@@ -94,7 +94,7 @@ public class MyProcess {
         builder.directory(new File(path));
         builder.start();
     }
-    
+
     public static void run_application_exe_or_jar(String application_to_run_name, String path, String cmd1, String cmd2) throws IOException {
         String[] commands = new String[3];
         if (application_to_run_name.contains(".jar")) {
@@ -132,7 +132,7 @@ public class MyProcess {
         builder.directory(new File(path));
         builder.start();
     }
-    
+
     /**
      * f you run .exe from the same dir use * "." for path parameter
      *
@@ -141,7 +141,7 @@ public class MyProcess {
      * @param path
      * @throws IOException
      */
-    public static void run_application_jar_with_argument(String application_to_run_name, String arg1,String arg2, String path) throws IOException {
+    public static void run_application_jar_with_argument(String application_to_run_name, String arg1, String arg2, String path) throws IOException {
         String[] commands = new String[5];
         if (application_to_run_name.contains(".jar")) {
             commands[0] = "java";
@@ -193,8 +193,6 @@ public class MyProcess {
         Desktop.getDesktop().open(file);
     }
 
-    
-
     /**
      * Can be very useful
      *
@@ -208,6 +206,45 @@ public class MyProcess {
         commands[2] = "start";
         ProcessBuilder builder = new ProcessBuilder(commands);
         return builder.start();
+    }
+
+    public static void run_powershell_cmd() throws IOException {
+        //String command = "powershell.exe  your command";
+        //Getting the version
+//        String command = "powershell.exe  $PSVersionTable.PSVersion";
+//        String command = "powershell.exe  netsh advfirewall firewall delete rule name=\"IP Block\"";
+        String command = "powershell.exe  netsh advfirewall firewall delete rule name=IP Block";
+        // Executing the command
+        //
+        Process powerShellProcess = Runtime.getRuntime().exec(command);
+        // Getting the results
+        powerShellProcess.getOutputStream().close();
+        String line;
+        System.out.println("Standard Output:");
+        BufferedReader stdout = new BufferedReader(new InputStreamReader(
+                powerShellProcess.getInputStream()));
+        while ((line = stdout.readLine()) != null) {
+            System.out.println(line);
+        }
+        stdout.close();
+        System.out.println("Standard Error:");
+        BufferedReader stderr = new BufferedReader(new InputStreamReader(
+                powerShellProcess.getErrorStream()));
+        while ((line = stderr.readLine()) != null) {
+            System.out.println(line);
+        }
+        stderr.close();
+        System.out.println("Done");
+    }
+
+    public static void main(String[] args) {
+
+        try {
+            run_powershell_cmd();
+        } catch (IOException ex) {
+            Logger.getLogger(MyProcess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public static void navigate_to_webbpage(String addr) {
@@ -738,14 +775,6 @@ public class MyProcess {
         //
         return builder.start();
     }
-    
-    public static void main(String[] args) {
-        try {
-            grab_output_from_a_non_java_prog_for_testing();
-        } catch (IOException ex) {
-            Logger.getLogger(MyProcess.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     //*********************************
     /**
@@ -756,7 +785,7 @@ public class MyProcess {
      */
     private static void grab_output_from_a_non_java_prog_for_testing() throws IOException {
 
-        String[] commands2 = {"ping","-n","1", "192.168.1.1"};
+        String[] commands2 = {"ping", "-n", "1", "192.168.1.1"};
 
         String line;
         OutputStream stdin = null;
