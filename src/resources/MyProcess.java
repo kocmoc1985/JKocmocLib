@@ -213,7 +213,8 @@ public class MyProcess {
         //Getting the version
 //        String command = "powershell.exe  $PSVersionTable.PSVersion";
 //        String command = "powershell.exe  netsh advfirewall firewall delete rule name=\"IP Block\"";
-        String command = "powershell.exe  netsh advfirewall firewall delete rule name=IP Block";
+//        String command = "powershell.exe  netsh advfirewall firewall delete rule name='IP Block'";
+        String command = "runas /profile /user:FUJI-B \"powershell.exe  netsh advfirewall firewall delete rule name='jmc'\"";
         // Executing the command
         //
         Process powerShellProcess = Runtime.getRuntime().exec(command);

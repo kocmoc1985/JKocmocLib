@@ -32,7 +32,6 @@ public class MyPath {
         } catch (IOException ex) {
             Logger.getLogger(MyFile.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         System.out.println("");
     }
     

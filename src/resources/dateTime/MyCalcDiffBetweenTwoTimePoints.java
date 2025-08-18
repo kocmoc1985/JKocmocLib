@@ -100,6 +100,6 @@ public class MyCalcDiffBetweenTwoTimePoints {
 
 //        System.out.println("" + findDiffBetweenTwoDates("2022-01-24 00:00:00", "2022-03-21 00:00:00", 3));
 //        System.out.println("" + findDiffBetweenTwoDates("2022-01-24 00:00:00", "2022-01-26 00:00:00", 3));
-        System.out.println("" + findDiffBetweenTwoDates("2022-01-24 00:00:00", "2022-01-26 00:00:00", 3));
+        System.out.println("" + findDiffBetweenTwoDates("2022-01-24 15:41:03", "2022-01-24 16:38:52", 2));
     }
 }

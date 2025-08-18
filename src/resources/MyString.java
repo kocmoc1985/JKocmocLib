@@ -49,9 +49,9 @@ public class MyString {
     }
 
     /**
-     * [2020-08-03] "�" Important! In fact when i am getting a String which
+     * [2020-08-03] "å" Important! In fact when i am getting a String which
      * looks like "Motors\u00e5g" in output in fact it is like "Motors\\u00e5g"
-     * and must be escaped to show the "�" character
+     * and must be escaped to show the "å" character
      *
      * @return
      */
@@ -60,15 +60,13 @@ public class MyString {
         return StringEscapeUtils.unescapeJava(x);
     }
 
-   
-
     public static void replaceBrackets() {
         String x = "select * from Main where [Name]='Ihti'";
         x = x.replaceAll("\\[", "`");
         x = x.replaceAll("\\]", "`");
         System.out.println("" + x);
     }
-    
+
     public static void replaceNewLine_slash_n__back() {
         String x = "#&@aaaa#&@bbbb#&@ccccc";
         x = x.replaceAll("#&@", "\n");
@@ -79,14 +77,6 @@ public class MyString {
         String x = "\naaaa\nbbbb\nccccc";
         x = x.replaceAll("(\r\n|\n)", " ");
         System.out.println("" + x);
-    }
-    
-     public static void main(String[] args) {
-//        replaceNewLine_slash_n();
-        replaceNewLine_slash_n__back();
-        System.out.println("" + celcius());
-        System.out.println("" + swedishO());
-        System.out.println("" + StringEscapeUtils.unescapeJava(swedishO()));
     }
 
     /**
@@ -119,7 +109,49 @@ public class MyString {
         return null;
     }
 
-    /**
+    public static String extractFromStringByRegex_a(String regex) {
+        String mydata = "some string with 00001 inside";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(mydata);
+        if (matcher.find()) {
+            return matcher.group();
+        } else {
+            return null;
+        }
+    }
+    
+    
+    public static String extractFromStringByRegex_b(String regex) {
+        String mydata = "РЕЗИНОВАЯ СМЕСЬ 24-Я-413 1 стадия";
+        System.out.println("" + mydata);
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(mydata);
+       
+        if (matcher.find()) {
+            System.out.println("" + matcher.start() + "  " + matcher.end());
+            System.out.println("" + mydata.substring(16, 24));
+            return matcher.group();
+        } else {
+            return null;
+        }
+    }
+    
+
+    public static void main(String[] args) {
+//        System.out.println("" + extractTableName("select * from input where id=1"));
+//          System.out.println("" + extractFromStringByRegex_a("\\d{5}"));
+            //
+            // \\d{2}-.+-\\d{3,4}
+            //
+            //
+//            System.out.println("РЕЗИНОВАЯ СМЕСЬ 24-Я-413 1 стадия");
+//            System.out.println("" + extractFromStringByRegex_b("\\d{2}-.+-\\d{3,4}"));
+            String x = "N'7";
+            System.out.println("" + x.substring(2));
+          
+    }
+
+    /*
      * Good to remember
      *
      * @param strToSplit
@@ -394,7 +426,7 @@ public class MyString {
         string_to_edit = string_to_edit.replace(';', new_separator);
         string_to_edit = string_to_edit.replace(':', new_separator);
         string_to_edit = string_to_edit.replace('*', new_separator);
-        string_to_edit = string_to_edit.replace('�', new_separator);
+        string_to_edit = string_to_edit.replace('¤', new_separator);
         string_to_edit = string_to_edit.replace('&', new_separator);
         string_to_edit = string_to_edit.replace('/', new_separator);
         string_to_edit = string_to_edit.replace('#', new_separator);
