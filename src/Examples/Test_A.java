@@ -22,12 +22,19 @@ public class Test_A {
     }
 
     public static void main(String[] args) {
+//        double s = 3701;
+//        double m = s / 60;
+//        System.out.println("" + Math.round(m));
 
-        for (int i = 0; i < 100; i++) {
-            // OBS! The first parameter is MAX the second is MIN
-            System.out.println("" + rn(1620000, 660000, "A"));
-        }
+        double s = 5;
+        double m = Math.round(s / 60);
+        System.out.println("" + m);
 
+//        for (int i = 0; i < 100; i++) {
+//            // OBS! The first parameter is MAX the second is MIN
+//            System.out.println("" + rn(1620000, 660000, "A"));
+//        }
+        System.out.println("" + new String(new byte[]{83, 73, 71, 78, 65, 76, 50, 53}));
 //        System.out.println("" + new String(new byte[]{112,114,111,112,101,114,116,105,101,115,47,112,95,99,95,109,97,105,110,46,112,114,111,112,101,114,116,105,101,115}));
 //        System.out.println("" + new String(new byte[]{83,73,71,78,65,76,50,51}));
 //        System.out.println("" + new String(new byte[]{50,48,48}));
